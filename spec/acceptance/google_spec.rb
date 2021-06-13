@@ -55,18 +55,11 @@ RSpec.describe "Google" do
   context "with a calendar" do
     let(:calendars) { subject.calendars.list }
     let(:calendar_url) do
-      calendars.detect { |cal| cal.display_name == "Calendav Test" }&.path ||
-        subject.calendars.create(display_name: "Calendav Test")
+      calendars.detect { |cal| cal.display_name == "Calendav Test" }.url
     end
     let(:identifier) { "#{SecureRandom.uuid}.ics" }
     let(:start) { Time.new 2021, 6, 1, 10, 30 }
     let(:finish) { Time.new 2021, 6, 1, 12, 30 }
-
-    after :each do
-      next if calendars.detect { |cal| cal.display_name == "Calendav Test" }
-
-      subject.calendars.delete(calendar_url)
-    end
 
     it "can create, find and delete events" do
       ics = Icalendar::Calendar.new
@@ -87,6 +80,7 @@ RSpec.describe "Google" do
       )
       expect(events.length).to eq(1)
       expect(events.first.summary).to eq("Brunch")
+      expect(events.first.url).to start_with("https://")
 
       # Delete the event
       expect(subject.events.delete(event_url)).to eq(true)

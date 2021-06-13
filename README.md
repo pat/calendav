@@ -15,7 +15,6 @@ At the time of writing, this gem is definitely not ready for production, nor is 
 
 Other features on the roadmap, in a rough order of priority:
 
-* Consistent access to calendar/event URLs.
 * Updating events.
 * List all events on a calendar.
 * Update calendars.

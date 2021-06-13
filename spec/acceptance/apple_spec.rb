@@ -36,6 +36,7 @@ RSpec.describe "Apple" do
       time_zone: ical_time_zone.to_ical
     )
     expect(url).to include(URI.decode_www_form_component(identifier))
+    expect(url).to start_with("https://")
 
     calendars = subject.calendars.list
     expect(calendars.collect(&:display_name)).to include("Calendav Test")
@@ -74,6 +75,7 @@ RSpec.describe "Apple" do
       )
       expect(events.length).to eq(1)
       expect(events.first.summary).to eq("Brunch")
+      expect(events.first.url).to start_with("https://")
 
       # Delete the event
       expect(subject.events.delete(event_url)).to eq(true)

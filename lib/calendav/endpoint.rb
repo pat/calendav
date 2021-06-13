@@ -85,7 +85,7 @@ module Calendav
 
     def request(verb, body = nil, url:, http: with_headers)
       response = http.request(
-        verb, ContextualURL.call(credentials, url), body: body
+        verb, ContextualURL.call(credentials.host, url), body: body
       )
       unless response.status.success?
         raise RequestFailedError, response.status.to_s

@@ -29,7 +29,7 @@ module Calendav
         endpoint
           .report(request.to_xml, url: calendar_url, depth: 1)
           .xpath(".//dav:response")
-          .collect { |node| Event.from_xml(node) }
+          .collect { |node| Event.from_xml(calendar_url, node) }
       end
 
       private

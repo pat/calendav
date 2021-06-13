@@ -25,7 +25,7 @@ module Calendav
         request = Requests::CurrentUserPrincipal.call
 
         ContextualURL.call(
-          credentials,
+          credentials.host,
           endpoint
             .propfind(request.to_xml)
             .xpath(".//dav:current-user-principal/dav:href")

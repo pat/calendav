@@ -1,21 +1,22 @@
 # frozen_string_literal: true
 
+require_relative "./contextual_url"
 require_relative "./xml_processor"
 
 module Calendav
   class Calendar
-    attr_reader :path
+    attr_reader :url
 
-    def self.from_xml(node)
+    def self.from_xml(host, node)
       new(
-        node.xpath("./dav:href").text,
+        ContextualURL.call(host, node.xpath("./dav:href").text),
         node.xpath(".//dav:prop/*").to_xml,
         node.namespaces
       )
     end
 
-    def initialize(path, attribute_nodes, namespaces = {})
-      @path = path
+    def initialize(url, attribute_nodes, namespaces = {})
+      @url = url
       @attribute_nodes = attribute_nodes
       @namespaces = namespaces
     end

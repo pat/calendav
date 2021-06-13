@@ -21,7 +21,7 @@ module Calendav
           request = Requests::CalendarHomeSet.call
 
           ContextualURL.call(
-            credentials,
+            credentials.host,
             endpoint
               .propfind(request.to_xml, url: client.principal_url)
               .xpath(".//caldav:calendar-home-set/dav:href")
@@ -50,7 +50,7 @@ module Calendav
           .propfind(request.to_xml, url: home_url, depth: 1)
           .xpath(".//dav:response")
           .select { |node| node.xpath(calendar_xpath).any? }
-          .collect { |node| Calendar.from_xml(node) }
+          .collect { |node| Calendar.from_xml(home_url, node) }
       end
 
       private

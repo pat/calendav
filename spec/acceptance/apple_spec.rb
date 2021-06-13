@@ -44,18 +44,14 @@ RSpec.describe "Apple" do
   end
 
   context "with a calendar" do
-    let(:calendars) { subject.calendars.list }
     let(:calendar_url) do
-      calendars.detect { |cal| cal.display_name == "Calendav Test" }&.path ||
-        subject.calendars.create(SecureRandom.uuid, display_name: "Calendav Test")
+      subject.calendars.create(SecureRandom.uuid, display_name: "Calendav Test")
     end
     let(:identifier) { "#{SecureRandom.uuid}.ics" }
     let(:start) { Time.new 2021, 6, 1, 10, 30 }
     let(:finish) { Time.new 2021, 6, 1, 12, 30 }
 
     after :each do
-      next if calendars.detect { |cal| cal.display_name == "Calendav Test" }
-
       subject.calendars.delete(calendar_url)
     end
 

@@ -12,6 +12,7 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   Exclude:
+    - 'calendav.gemspec'
     - 'spec/**/*_spec.rb'
 
 Metrics/MethodLength:

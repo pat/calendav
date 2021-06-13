@@ -58,7 +58,7 @@ module Calendav
       attr_reader :client, :endpoint, :credentials
 
       def merged_url(identifier)
-        "#{home_url.delete_suffix("/")}/#{identifier.delete_suffix("/")}/"
+        "#{home_url.delete_suffix('/')}/#{identifier.delete_suffix('/')}/"
       end
     end
   end

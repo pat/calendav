@@ -37,7 +37,7 @@ module Calendav
       attr_reader :client, :endpoint, :credentials
 
       def merged_url(calendar_url, event_identifier)
-        "#{calendar_url.delete_suffix("/")}/#{event_identifier}"
+        "#{calendar_url.delete_suffix('/')}/#{event_identifier}"
       end
     end
   end

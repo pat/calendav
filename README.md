@@ -10,15 +10,15 @@ At the time of writing, this gem is definitely not ready for production, nor is 
 * Creating events on a calendar.
 * Listing events on a calendar within a given timespan.
 * Deleting events on a calendar.
+* Create new calendars.
+* Delete calendars.
 
 Other features on the roadmap, in a rough order of priority:
 
 * Consistent access to calendar/event URLs.
 * Updating events.
 * List all events on a calendar.
-* Create new calendars.
 * Update calendars.
-* Delete calendars.
 * Enable etag validation for updates/deletions (If-Match header).
 * Solid exception handling.
 * Use WebDAV-Sync to get changes since last sync.

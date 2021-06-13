@@ -30,16 +30,12 @@ module Calendav
         end
       end
 
-      def create(attributes)
+      def create(identifier, attributes)
         request = Requests::MakeCalendar.call(attributes)
+        url = merged_url(identifier)
+        result = endpoint.mkcalendar(request.to_xml, url: url)
 
-        id = SecureRandom.uuid
-        id = "/#{id}" unless home_url.end_with?("/")
-        url = home_url + id
-
-        endpoint.mkcalendar(request.to_xml, url: url)
-
-        url
+        result.headers["Location"] || url
       end
 
       def delete(url)
@@ -60,6 +56,10 @@ module Calendav
       private
 
       attr_reader :client, :endpoint, :credentials
+
+      def merged_url(identifier)
+        "#{home_url.delete_suffix("/")}/#{identifier.delete_suffix("/")}/"
+      end
     end
   end
 end

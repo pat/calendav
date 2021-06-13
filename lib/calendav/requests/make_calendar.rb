@@ -17,7 +17,7 @@ module Calendav
 
       def call
         Nokogiri::XML::Builder.new do |xml|
-          xml["caldav"].propfind(XMLProcessor::NAMESPACES) do
+          xml["caldav"].mkcalendar(XMLProcessor::NAMESPACES) do
             xml["dav"].set do
               xml["dav"].prop do
                 xml["dav"].displayname display_name
@@ -31,6 +31,8 @@ module Calendav
                 if time_zone
                   xml["caldav"].public_send(:"calendar-timezone", time_zone)
                 end
+
+                xml["apple"].public_send(:"calendar-color", color) if color
 
                 xml["caldav"].public_send(
                   :"supported-calendar-component-set"
@@ -46,6 +48,10 @@ module Calendav
       private
 
       attr_reader :attributes
+
+      def color
+        attributes[:color]
+      end
 
       def display_name
         attributes[:display_name]

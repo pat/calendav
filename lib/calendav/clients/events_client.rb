@@ -13,10 +13,7 @@ module Calendav
       end
 
       def create(calendar_url, event_identifier, ics)
-        url = merged_url(calendar_url, event_identifier)
-        result = endpoint.put(ics, url: url, content_type: :ics)
-
-        result.headers["Location"] || url
+        update merged_url(calendar_url, event_identifier), ics
       end
 
       def delete(event_url)
@@ -30,6 +27,12 @@ module Calendav
           .report(request.to_xml, url: calendar_url, depth: 1)
           .xpath(".//dav:response")
           .collect { |node| Event.from_xml(calendar_url, node) }
+      end
+
+      def update(event_url, ics)
+        result = endpoint.put(ics, url: event_url, content_type: :ics)
+
+        result.headers["Location"] || event_url
       end
 
       private

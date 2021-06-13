@@ -28,13 +28,15 @@ RSpec.describe "Google" do
   end
 
   it "determines the user's principal URL" do
-    expect(subject.principal_url)
-      .to eq("https://apidata.googleusercontent.com/caldav/v2/#{URI.encode_www_form_component(username)}/user")
+    expect(subject.principal_url).to eq_encoded_url(
+      "https://apidata.googleusercontent.com/caldav/v2/#{username}/user"
+    )
   end
 
   it "determines the user's calendar URL" do
-    expect(subject.calendars.home_url)
-      .to eq("https://apidata.googleusercontent.com/caldav/v2/#{URI.encode_www_form_component(username)}/")
+    expect(subject.calendars.home_url).to eq_encoded_url(
+      "https://apidata.googleusercontent.com/caldav/v2/#{username}/"
+    )
   end
 
   it "can create and delete calendars" do
@@ -61,7 +63,7 @@ RSpec.describe "Google" do
     let(:start) { Time.new 2021, 6, 1, 10, 30 }
     let(:finish) { Time.new 2021, 6, 1, 12, 30 }
 
-    it "can create, find and delete events" do
+    it "can create, find, update and delete events" do
       ics = Icalendar::Calendar.new
       ics.event do |event|
         event.dtstart = start.utc
@@ -80,7 +82,20 @@ RSpec.describe "Google" do
       )
       expect(events.length).to eq(1)
       expect(events.first.summary).to eq("Brunch")
-      expect(events.first.url).to start_with("https://")
+      expect(events.first.url).to eq_encoded_url(event_url)
+
+      # Update the event
+      ics.events.first.dtstart = Time.new(2021, 7, 1, 10, 30).utc
+      ics.events.first.dtend = Time.new(2021, 7, 1, 12, 30).utc
+      subject.events.update(event_url, ics.to_ical)
+
+      # Search again
+      events = subject.events.list(
+        calendar_url, from: Time.new(2021, 7, 1), to: Time.new(2021, 7, 2)
+      )
+      expect(events.length).to eq(1)
+      expect(events.first.summary).to eq("Brunch")
+      expect(events.first.url).to eq_encoded_url(event_url)
 
       # Delete the event
       expect(subject.events.delete(event_url)).to eq(true)

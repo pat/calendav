@@ -15,12 +15,12 @@ RSpec.describe "Apple" do
 
   it "determines the user's principal URL" do
     expect(subject.principal_url)
-      .to eq("https://caldav.icloud.com/20264203208/principal/")
+      .to eq_encoded_url("https://caldav.icloud.com/20264203208/principal/")
   end
 
   it "determines the user's calendar URL" do
     expect(subject.calendars.home_url)
-      .to eq("https://p49-caldav.icloud.com/20264203208/calendars/")
+      .to eq_encoded_url("https://p49-caldav.icloud.com/20264203208/calendars/")
   end
 
   it "can create, find and delete calendars" do
@@ -75,7 +75,20 @@ RSpec.describe "Apple" do
       )
       expect(events.length).to eq(1)
       expect(events.first.summary).to eq("Brunch")
-      expect(events.first.url).to start_with("https://")
+      expect(events.first.url).to eq_encoded_url(event_url)
+
+      # Update the event
+      ics.events.first.dtstart = Time.new(2021, 7, 1, 10, 30).utc
+      ics.events.first.dtend = Time.new(2021, 7, 1, 12, 30).utc
+      subject.events.update(event_url, ics.to_ical)
+
+      # Search again
+      events = subject.events.list(
+        calendar_url, from: Time.new(2021, 7, 1), to: Time.new(2021, 7, 2)
+      )
+      expect(events.length).to eq(1)
+      expect(events.first.summary).to eq("Brunch")
+      expect(events.first.url).to eq_encoded_url(event_url)
 
       # Delete the event
       expect(subject.events.delete(event_url)).to eq(true)

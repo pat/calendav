@@ -15,7 +15,6 @@ At the time of writing, this gem is definitely not ready for production, nor is 
 
 Other features on the roadmap, in a rough order of priority:
 
-* Updating events.
 * List all events on a calendar.
 * Update calendars.
 * Enable etag validation for updates/deletions (If-Match header).

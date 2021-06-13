@@ -1,62 +1,53 @@
 # frozen_string_literal: true
 
-require "googleauth"
 require "icalendar"
+require "icalendar/tzinfo"
 require "securerandom"
 require "uri"
 
-RSpec.describe "Google" do
-  let(:provider) { :google }
-  let(:username) { ENV.fetch("GOOGLE_USERNAME") }
-  let(:access_token) { @access_token }
-  let(:credentials) { Calendav.credentials(provider, username, access_token) }
+RSpec.describe "Apple" do
+  let(:provider) { :apple }
+  let(:username) { ENV.fetch("APPLE_USERNAME") }
+  let(:password) { ENV.fetch("APPLE_PASSWORD") }
+  let(:credentials) { Calendav.credentials(provider, username, password) }
 
   subject { Calendav.client(credentials) }
 
-  before :context do
-    @access_token = begin
-      credentials = Google::Auth::UserRefreshCredentials.new(
-        client_id: ENV.fetch("GOOGLE_CLIENT_ID"),
-        scope: [],
-        client_secret: ENV.fetch("GOOGLE_CLIENT_SECRET"),
-        refresh_token: ENV.fetch("GOOGLE_REFRESH_TOKEN"),
-        additional_parameters: { "access_type" => "offline" }
-      )
-      credentials.fetch_access_token!
-      credentials.access_token
-    end
-  end
-
   it "determines the user's principal URL" do
     expect(subject.principal_url)
-      .to eq("https://apidata.googleusercontent.com/caldav/v2/#{URI.encode_www_form_component(username)}/user")
+      .to eq("https://caldav.icloud.com/20264203208/principal/")
   end
 
   it "determines the user's calendar URL" do
     expect(subject.calendars.home_url)
-      .to eq("https://apidata.googleusercontent.com/caldav/v2/#{URI.encode_www_form_component(username)}/")
+      .to eq("https://p49-caldav.icloud.com/20264203208/calendars/")
   end
 
-  it "can create and delete calendars" do
-    skip "Not supported by Google"
+  it "can create, find and delete calendars" do
+    identifier = SecureRandom.uuid
+    time_zone = TZInfo::Timezone.get "UTC"
+    ical_time_zone = time_zone.ical_timezone Time.now.utc
+
     url = subject.calendars.create(
-      display_name: "Calendav Test"
+      identifier,
+      display_name: "Calendav Test",
+      description: "For test purposes only",
+      color: "#00FF00",
+      time_zone: ical_time_zone.to_ical
     )
+    expect(url).to include(URI.decode_www_form_component(identifier))
+
+    calendars = subject.calendars.list
+    expect(calendars.collect(&:display_name)).to include("Calendav Test")
 
     subject.calendars.delete(url)
-  end
-
-  it "can find calendars" do
-    calendars = subject.calendars.list
-
-    expect(calendars.collect(&:display_name)).to include("Calendav Test")
   end
 
   context "with a calendar" do
     let(:calendars) { subject.calendars.list }
     let(:calendar_url) do
       calendars.detect { |cal| cal.display_name == "Calendav Test" }&.path ||
-        subject.calendars.create(display_name: "Calendav Test")
+        subject.calendars.create(SecureRandom.uuid, display_name: "Calendav Test")
     end
     let(:identifier) { "#{SecureRandom.uuid}.ics" }
     let(:start) { Time.new 2021, 6, 1, 10, 30 }

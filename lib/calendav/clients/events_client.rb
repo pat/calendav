@@ -16,7 +16,7 @@ module Calendav
         url = merged_url(calendar_url, event_identifier)
         result = endpoint.put(ics, url: url, content_type: :ics)
 
-        result.headers["Location"]
+        result.headers["Location"] || url
       end
 
       def delete(event_url)
@@ -37,11 +37,7 @@ module Calendav
       attr_reader :client, :endpoint, :credentials
 
       def merged_url(calendar_url, event_identifier)
-        if calendar_url.end_with?("/")
-          "#{calendar_url}#{event_identifier}"
-        else
-          "#{calendar_url}/#{event_identifier}"
-        end
+        "#{calendar_url.delete_suffix("/")}/#{event_identifier}"
       end
     end
   end

@@ -91,7 +91,7 @@ module Calendav
         raise RequestFailedError, response.status.to_s
       end
 
-      return response if response.content_length&.zero?
+      return response if response.content_length&.zero? || response.body.empty?
 
       XMLProcessor.call(response.body)
     end

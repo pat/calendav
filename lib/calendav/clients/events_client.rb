@@ -42,7 +42,6 @@ module Calendav
 
         endpoint
           .report(request.to_xml, url: calendar_url, depth: 1)
-          .xpath(".//dav:response")
           .reject { |node| node.xpath(".//caldav:calendar-data").text.empty? }
           .collect { |node| Event.from_xml(calendar_url, node) }
       end

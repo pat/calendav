@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "./contextual_url"
-require_relative "./xml_processor"
+require_relative "./parsers/response_xml"
 
 module Calendav
   class Endpoint
@@ -120,7 +120,7 @@ module Calendav
       if response.content_type.mime_type == "text/calendar"
         response
       else
-        XMLProcessor.call(response.body)
+        Parsers::ResponseXML.call(response.body)
       end
     end
   end

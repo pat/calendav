@@ -28,6 +28,7 @@ module Calendav
           credentials.host,
           endpoint
             .propfind(request.to_xml)
+            .first
             .xpath(".//dav:current-user-principal/dav:href")
             .text
         )

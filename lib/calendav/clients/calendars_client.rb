@@ -25,6 +25,7 @@ module Calendav
             credentials.host,
             endpoint
               .propfind(request.to_xml, url: client.principal_url)
+              .first
               .xpath(".//caldav:calendar-home-set/dav:href")
               .text
           )
@@ -57,7 +58,6 @@ module Calendav
 
         endpoint
           .propfind(request.to_xml, url: url, depth: depth)
-          .xpath(".//dav:response")
           .select { |node| node.xpath(calendar_xpath).any? }
           .collect { |node| Calendar.from_xml(home_url, node) }
       end
@@ -73,6 +73,7 @@ module Calendav
         request = Requests::UpdateCalendar.call(attributes)
         endpoint
           .proppatch(request.to_xml, url: url)
+          .first
           .xpath(".//dav:status")
           .text["200 OK"] == "200 OK"
       end

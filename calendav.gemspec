@@ -25,11 +25,11 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "http"
+  spec.add_runtime_dependency "icalendar"
   spec.add_runtime_dependency "nokogiri"
 
   spec.add_development_dependency "dotenv"
   spec.add_development_dependency "googleauth"
-  spec.add_development_dependency "icalendar"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "rubocop"

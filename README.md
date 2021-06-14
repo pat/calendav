@@ -10,7 +10,7 @@ Calendav has support for a few calendar providers built-in by default: Apple, Fa
 
 ```ruby
 credentials = Calendav.credentials(
-  :apple, username: "example@icloud.com", password: "app-specific-password"
+  :apple, "example@icloud.com", "app-specific-password"
 )
 ```
 

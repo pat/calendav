@@ -6,7 +6,7 @@ require_relative "./parsers/calendar_xml"
 module Calendav
   class Calendar
     attr_reader :url, :display_name, :description, :ctag, :etag, :time_zone,
-                :color
+                :color, :components, :reports, :sync_token
 
     def self.from_xml(host, node)
       new(
@@ -23,6 +23,9 @@ module Calendav
       @etag = attributes[:etag]
       @time_zone = attributes[:time_zone]
       @color = attributes[:color]
+      @components = attributes[:components]
+      @reports = attributes[:reports]
+      @sync_token = attributes[:sync_token]
     end
   end
 end

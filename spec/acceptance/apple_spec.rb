@@ -59,12 +59,21 @@ RSpec.describe "Apple" do
     let(:calendar_url) do
       subject.calendars.create(SecureRandom.uuid, display_name: "Calendav Test")
     end
+    let(:calendar) { subject.calendars.find(calendar_url) }
     let(:identifier) { "#{SecureRandom.uuid}.ics" }
     let(:start) { Time.new 2021, 6, 1, 10, 30 }
     let(:finish) { Time.new 2021, 6, 1, 12, 30 }
 
     after :each do
       subject.calendars.delete(calendar_url)
+    end
+
+    it "supports events" do
+      expect(calendar.components).to include("VEVENT")
+    end
+
+    it "supports WebDAV-Sync" do
+      expect(calendar.reports).to include("sync-collection")
     end
 
     it "can create, find, update and delete events" do
@@ -77,12 +86,12 @@ RSpec.describe "Apple" do
       ics.publish
 
       # Create an event
-      event_url = subject.events.create(calendar_url, identifier, ics.to_ical)
-      expect(event_url).to include(URI.decode_www_form_component(calendar_url))
+      event_url = subject.events.create(calendar.url, identifier, ics.to_ical)
+      expect(event_url).to include(URI.decode_www_form_component(calendar.url))
 
       # Search for the event
       events = subject.events.list(
-        calendar_url, from: Time.new(2021, 6, 1), to: Time.new(2021, 6, 2)
+        calendar.url, from: Time.new(2021, 6, 1), to: Time.new(2021, 6, 2)
       )
       expect(events.length).to eq(1)
       expect(events.first.summary).to eq("Brunch")
@@ -95,7 +104,7 @@ RSpec.describe "Apple" do
 
       # Search again
       events = subject.events.list(
-        calendar_url, from: Time.new(2021, 7, 1), to: Time.new(2021, 7, 2)
+        calendar.url, from: Time.new(2021, 7, 1), to: Time.new(2021, 7, 2)
       )
       expect(events.length).to eq(1)
       expect(events.first.summary).to eq("Brunch")
@@ -111,11 +120,11 @@ RSpec.describe "Apple" do
       ics.publish
 
       another_url = subject.events.create(
-        calendar_url, "#{SecureRandom.uuid}.ics", ics.to_ical
+        calendar.url, "#{SecureRandom.uuid}.ics", ics.to_ical
       )
 
       # Search for all events
-      events = subject.events.list(calendar_url)
+      events = subject.events.list(calendar.url)
       expect(events.length).to eq(2)
 
       # Delete the events
@@ -132,7 +141,7 @@ RSpec.describe "Apple" do
       end
       ics.publish
 
-      event_url = subject.events.create(calendar_url, identifier, ics.to_ical)
+      event_url = subject.events.create(calendar.url, identifier, ics.to_ical)
       event = subject.events.find(event_url)
 
       ics.events.first.summary = "Coffee"
@@ -152,6 +161,57 @@ RSpec.describe "Apple" do
 
       expect(subject.events.delete(event_url, etag: event.etag)).to eq(false)
       expect(subject.events.delete(event_url)).to eq(true)
+    end
+
+    it "handles synchronisation requests" do
+      first = Icalendar::Calendar.new
+      first.event do |event|
+        event.dtstart = start.utc
+        event.dtend = finish.utc
+        event.summary = "Brunch"
+      end
+      first.publish
+
+      first_url = subject.events.create(calendar.url, identifier, first.to_ical)
+      token = subject.calendars.find(calendar.url, sync: true).sync_token
+
+      events = subject.events.list(calendar.url)
+      expect(events.length).to eq(1)
+
+      second = Icalendar::Calendar.new
+      second.event do |event|
+        event.dtstart = start.utc
+        event.dtend = finish.utc
+        event.summary = "Brunch Again"
+      end
+      second.publish
+      second_url = subject.events.create(
+        calendar.url, "#{SecureRandom.uuid}.ics", second.to_ical
+      )
+
+      first.events.first.summary = "Coffee"
+      subject.events.update(first_url, first.to_ical)
+
+      collection = subject.calendars.sync(calendar.url, token)
+      expect(collection.changes.collect(&:url))
+        .to match_encoded_urls([first_url, second_url])
+
+      expect(collection.deletions).to be_empty
+
+      first.events.first.summary = "Brunch"
+      subject.events.update(first_url, first.to_ical)
+
+      subject.events.delete(second_url)
+
+      collection = subject.calendars.sync(calendar.url, collection.token)
+      urls = collection.changes.collect(&:url)
+      expect(urls.length).to eq(1)
+      expect(urls[0]).to eq_encoded_url(first_url)
+
+      expect(collection.deletions.length).to eq(1)
+      expect(collection.deletions.first).to eq_encoded_url(second_url)
+
+      subject.events.delete(first_url)
     end
   end
 end

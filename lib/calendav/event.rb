@@ -24,6 +24,10 @@ module Calendav
       inner_event.summary
     end
 
+    def unloaded?
+      calendar_data.nil?
+    end
+
     private
 
     def inner_calendar

@@ -3,6 +3,16 @@
 module Calendav
   module Parsers
     class CalendarXML
+      XPATHS = {
+        display_name: ".//dav:displayname",
+        description: ".//caldav:calendar-description",
+        ctag: ".//cs:getctag",
+        etag: ".//dav:getetag",
+        time_zone: ".//caldav:calendar-timezone",
+        color: ".//apple:calendar-color",
+        sync_token: ".//dav:sync-token"
+      }.freeze
+
       def self.call(...)
         new(...).call
       end
@@ -12,19 +22,26 @@ module Calendav
       end
 
       def call
-        {
-          display_name: value(".//dav:displayname"),
-          description: value(".//caldav:calendar-description"),
-          ctag: value(".//cs:getctag"),
-          etag: value(".//dav:getetag"),
-          time_zone: value(".//caldav:calendar-timezone"),
-          color: value(".//apple:calendar-color")
-        }
+        XPATHS
+          .transform_values { |xpath| value(xpath) }
+          .merge(components: components, reports: reports)
       end
 
       private
 
       attr_reader :element
+
+      def components
+        element
+          .xpath(".//caldav:supported-calendar-component-set/caldav:comp")
+          .collect { |node| node["name"] }
+      end
+
+      def reports
+        element
+          .xpath("//dav:supported-report-set/dav:supported-report/dav:report/*")
+          .collect(&:name)
+      end
 
       def value(xpath)
         node = element.xpath(xpath)

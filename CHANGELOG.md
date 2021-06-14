@@ -7,6 +7,7 @@
 * Allow for etag check to be used on event deletions.
 * Finding of single events and calendars by URLs.
 * Check if calendar creation is possible.
+* WebDAV-Sync support.
 
 ## [0.0.1] - 2021-06-13
 

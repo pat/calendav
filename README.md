@@ -17,10 +17,10 @@ At the time of writing, this gem is definitely not ready for production, nor is 
 * Create new calendars.
 * Update calendars.
 * Delete calendars.
+* WebDAV-Sync support.
 
 Other features on the roadmap, in a rough order of priority:
 
-* Use WebDAV-Sync to get changes since last sync.
 * Enable locking/unlocking when making changes.
 * Allow requesting only certain properties for calendars/events.
 

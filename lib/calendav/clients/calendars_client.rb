@@ -3,14 +3,20 @@
 require "securerandom"
 
 require_relative "../calendar"
+require_relative "../parsers/sync_xml"
 require_relative "../requests/calendar_home_set"
 require_relative "../requests/list_calendars"
 require_relative "../requests/make_calendar"
+require_relative "../requests/sync_collection"
 require_relative "../requests/update_calendar"
 
 module Calendav
   module Clients
     class CalendarsClient
+      DEFAULT_ATTRIBUTES = %i[
+        display_name resource_type etag ctag color components reports
+      ].freeze
+
       def initialize(client, endpoint, credentials)
         @client = client
         @endpoint = endpoint
@@ -45,12 +51,14 @@ module Calendav
         endpoint.delete(url: url)
       end
 
-      def find(url)
-        list(url, depth: 0).first
+      def find(url, attributes: DEFAULT_ATTRIBUTES, sync: false)
+        attributes = (attributes.dup << :sync_token) if sync
+
+        list(url, depth: 0, attributes: attributes).first
       end
 
-      def list(url = home_url, depth: 1)
-        request = Requests::ListCalendars.call
+      def list(url = home_url, depth: 1, attributes: DEFAULT_ATTRIBUTES)
+        request = Requests::ListCalendars.call(attributes)
         calendar_xpath = ".//dav:resourcetype/caldav:calendar"
 
         endpoint
@@ -64,6 +72,14 @@ module Calendav
           .options(url: home_url)
           .headers["Allow"]
           .split(", ")
+      end
+
+      def sync(url, token)
+        request = Requests::SyncCollection.call(token)
+
+        Parsers::SyncXML.call(
+          url, endpoint.report(request.to_xml, url: url, depth: nil)
+        )
       end
 
       def update(url, attributes)

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "../errors"
+require_relative "../multi_response"
 require_relative "../namespaces"
 
 module Calendav
@@ -18,7 +19,7 @@ module Calendav
       def call
         return document if document.xpath("/dav:multistatus").empty?
 
-        document.xpath("/dav:multistatus/dav:response")
+        MultiResponse.new(document)
       end
 
       private

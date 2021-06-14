@@ -28,11 +28,11 @@ module Calendav
             xml["caldav"].filter do
               xml["caldav"].public_send(:"comp-filter", name: "VCALENDAR") do
                 xml["caldav"].public_send(:"comp-filter", name: "VEVENT") do
-                  xml["caldav"].public_send(
-                    :"time-range",
-                    start: from.utc.iso8601.delete(":-"),
-                    end: to.utc.iso8601.delete(":-")
-                  )
+                  if range?
+                    xml["caldav"].public_send(
+                      :"time-range", start: from, end: to
+                    )
+                  end
                 end
               end
             end
@@ -42,7 +42,21 @@ module Calendav
 
       private
 
-      attr_reader :from, :to
+      def from
+        return nil if @from.nil?
+
+        @from.utc.iso8601.delete(":-")
+      end
+
+      def to
+        return nil if @to.nil?
+
+        @to.utc.iso8601.delete(":-")
+      end
+
+      def range?
+        to || from
+      end
     end
   end
 end

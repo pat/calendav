@@ -8,6 +8,7 @@ At the time of writing, this gem is definitely not ready for production, nor is 
 * Determining the calendar home path.
 * Listing available calendars.
 * Creating events on a calendar.
+* List all events on a calendar.
 * Listing events on a calendar within a given timespan.
 * Deleting events on a calendar.
 * Create new calendars.
@@ -15,7 +16,6 @@ At the time of writing, this gem is definitely not ready for production, nor is 
 
 Other features on the roadmap, in a rough order of priority:
 
-* List all events on a calendar.
 * Update calendars.
 * Enable etag validation for updates/deletions (If-Match header).
 * Solid exception handling.
@@ -48,7 +48,7 @@ puts client.principal_url
 
 puts client.calendars.home_url
 calendars = client.calendars.list
-calendars.each { |calendar| puts calendar.path, calendar.display_name }
+calendars.each { |calendar| puts calendar.url, calendar.display_name }
 
 events = client.events.list(
   calendar.path, from: Time.new(2021, 1, 1), to: Time.new(2022, 1, 1)
@@ -64,7 +64,7 @@ ics.publish
 # You need to provide the expected filename for the event:
 identifier = "#{SecureRandom.uuid}.ics"
 # … but the server may change it on you, so the new, full URL is returned:
-event_url = client.events.create(calendar.path, identifier, ics.to_ical)
+event_url = client.events.create(calendar.url, identifier, ics.to_ical)
 
 client.events.delete(event_url)
 ```

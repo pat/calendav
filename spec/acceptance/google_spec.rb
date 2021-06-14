@@ -97,8 +97,26 @@ RSpec.describe "Google" do
       expect(events.first.summary).to eq("Brunch")
       expect(events.first.url).to eq_encoded_url(event_url)
 
-      # Delete the event
+      # Create another event
+      ics = Icalendar::Calendar.new
+      ics.event do |event|
+        event.dtstart = start.utc
+        event.dtend = finish.utc
+        event.summary = "Brunch"
+      end
+      ics.publish
+
+      another_url = subject.events.create(
+        calendar_url, "#{SecureRandom.uuid}.ics", ics.to_ical
+      )
+
+      # Search for all events
+      events = subject.events.list(calendar_url)
+      expect(events.length).to eq(2)
+
+      # Delete the events
       expect(subject.events.delete(event_url)).to eq(true)
+      expect(subject.events.delete(another_url)).to eq(true)
     end
   end
 end

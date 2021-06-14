@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
+require_relative "./namespaces"
+
 module Calendav
   class XMLProcessor
-    NAMESPACES = {
-      "xmlns:dav" => "DAV:",
-      "xmlns:caldav" => "urn:ietf:params:xml:ns:caldav",
-      "xmlns:cs" => "http://calendarserver.org/ns/",
-      "xmlns:apple" => "http://apple.com/ns/ical/"
-    }.freeze
-
     def self.call(...)
       new(...).call
     end

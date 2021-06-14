@@ -2,7 +2,7 @@
 
 require "nokogiri"
 
-require_relative "../xml_processor"
+require_relative "../namespaces"
 
 module Calendav
   module Requests
@@ -17,7 +17,7 @@ module Calendav
 
       def call
         Nokogiri::XML::Builder.new do |xml|
-          xml["dav"].propertyupdate(XMLProcessor::NAMESPACES) do
+          xml["dav"].propertyupdate(NAMESPACES) do
             xml["dav"].set do
               xml["dav"].prop do
                 xml["dav"].displayname display_name if display_name

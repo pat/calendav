@@ -2,7 +2,7 @@
 
 require "nokogiri"
 
-require_relative "../xml_processor"
+require_relative "../namespaces"
 
 module Calendav
   module Requests
@@ -18,9 +18,7 @@ module Calendav
 
       def call
         Nokogiri::XML::Builder.new do |xml|
-          xml["caldav"].public_send(
-            "calendar-query", XMLProcessor::NAMESPACES
-          ) do
+          xml["caldav"].public_send("calendar-query", NAMESPACES) do
             xml["dav"].prop do
               xml["dav"].getetag
               xml["caldav"].public_send(:"calendar-data")

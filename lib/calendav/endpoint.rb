@@ -35,6 +35,10 @@ module Calendav
       )
     end
 
+    def options(url:)
+      request(:options, url: url)
+    end
+
     def propfind(body, url: nil, depth: 0)
       request(
         :propfind,

@@ -23,6 +23,10 @@ RSpec.describe "Apple" do
       .to eq_encoded_url("https://p49-caldav.icloud.com/20264203208/calendars/")
   end
 
+  it "supports calendar creation" do
+    expect(subject.calendars.create?).to eq(true)
+  end
+
   it "can create, find, update and delete calendars" do
     identifier = SecureRandom.uuid
     time_zone = TZInfo::Timezone.get "UTC"

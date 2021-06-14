@@ -39,13 +39,8 @@ RSpec.describe "Google" do
     )
   end
 
-  it "can create and delete calendars" do
-    skip "Not supported by Google"
-    url = subject.calendars.create(
-      display_name: "Calendav Test"
-    )
-
-    subject.calendars.delete(url)
+  it "cannot create calendars" do
+    expect(subject.calendars.create?).to eq(false)
   end
 
   it "can find and update calendars" do

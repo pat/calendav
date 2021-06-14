@@ -31,6 +31,10 @@ module Calendav
         end
       end
 
+      def create?
+        options.include?("MKCOL") || options.include?("MKCALENDAR")
+      end
+
       def create(identifier, attributes)
         request = Requests::MakeCalendar.call(attributes)
         url = merged_url(identifier)
@@ -56,6 +60,13 @@ module Calendav
           .xpath(".//dav:response")
           .select { |node| node.xpath(calendar_xpath).any? }
           .collect { |node| Calendar.from_xml(home_url, node) }
+      end
+
+      def options
+        endpoint
+          .options(url: home_url)
+          .headers["Allow"]
+          .split(", ")
       end
 
       def update(url, attributes)

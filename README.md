@@ -20,7 +20,6 @@ At the time of writing, this gem is definitely not ready for production, nor is 
 
 Other features on the roadmap, in a rough order of priority:
 
-* Use OPTIONS to confirm feature availability.
 * Solid response handling.
 * Solid exception handling.
 * Use WebDAV-Sync to get changes since last sync.
@@ -53,6 +52,10 @@ puts client.principal_url
 puts client.calendars.home_url
 calendars = client.calendars.list
 calendars.each { |calendar| puts calendar.url, calendar.display_name }
+
+# Not all CalDAV servers allow you to create new calendars. So, you can check:
+client.calendars.create?
+# Apple allows creation, but Google doesn't.
 
 calendar_url = client.calendars.create(display_name: "New Calendar")
 client.calendars.update(calendar_url, display_name: "Updated Calendar")

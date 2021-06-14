@@ -23,14 +23,11 @@ module Calendav
     def principal_url
       @principal_url ||= begin
         request = Requests::CurrentUserPrincipal.call
+        response = endpoint.propfind(request.to_xml).first
 
         ContextualURL.call(
           credentials.host,
-          endpoint
-            .propfind(request.to_xml)
-            .first
-            .xpath(".//dav:current-user-principal/dav:href")
-            .text
+          response.xpath(".//dav:current-user-principal/dav:href").text
         )
       end
     end

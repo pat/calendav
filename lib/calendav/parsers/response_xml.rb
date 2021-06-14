@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "../errors"
 require_relative "../namespaces"
 
 module Calendav
@@ -38,9 +39,8 @@ module Calendav
 
       def parse(string)
         Nokogiri::XML(string) { |config| config.strict.noblanks }
-      rescue Nokogiri::XML::SyntaxError
-        puts string
-        raise
+      rescue Nokogiri::XML::SyntaxError => error
+        raise ParsingXMLError.new(string, error)
       end
     end
   end

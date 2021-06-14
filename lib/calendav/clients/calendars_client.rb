@@ -20,14 +20,11 @@ module Calendav
       def home_url
         @home_url ||= begin
           request = Requests::CalendarHomeSet.call
+          response = endpoint.propfind(request.to_xml, url: principal_url).first
 
           ContextualURL.call(
             credentials.host,
-            endpoint
-              .propfind(request.to_xml, url: client.principal_url)
-              .first
-              .xpath(".//caldav:calendar-home-set/dav:href")
-              .text
+            response.xpath(".//caldav:calendar-home-set/dav:href").text
           )
         end
       end
@@ -84,6 +81,10 @@ module Calendav
 
       def merged_url(identifier)
         "#{home_url.delete_suffix('/')}/#{identifier.delete_suffix('/')}/"
+      end
+
+      def principal_url
+        client.principal_url
       end
     end
   end

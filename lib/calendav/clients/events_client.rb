@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "../errors"
 require_relative "../event"
 require_relative "../requests/list_events"
 
@@ -21,10 +22,8 @@ module Calendav
 
       def delete(event_url, etag: nil)
         endpoint.delete(url: event_url, etag: etag)
-      rescue Endpoint::RequestFailedError => error
-        return false if error.message["412"]
-
-        raise
+      rescue PreconditionError
+        false
       end
 
       def find(event_url)
@@ -52,10 +51,8 @@ module Calendav
         )
 
         true
-      rescue Endpoint::RequestFailedError => error
-        return false if error.message["412"]
-
-        raise
+      rescue PreconditionError
+        false
       end
 
       private

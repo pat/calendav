@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "./contextual_url"
+require_relative "./errors"
 require_relative "./parsers/response_xml"
 
 module Calendav
@@ -9,8 +10,6 @@ module Calendav
       ics: "text/calendar",
       xml: "application/xml; charset=utf-8"
     }.freeze
-
-    RequestFailedError = Class.new(StandardError)
 
     def initialize(credentials)
       @credentials = credentials
@@ -107,11 +106,14 @@ module Calendav
       response = http.request(
         verb, ContextualURL.call(credentials.host, url), body: body
       )
-      unless response.status.success?
-        raise RequestFailedError, response.status.to_s
-      end
 
-      parse(response)
+      if response.status.success?
+        parse(response)
+      elsif response.status.code == 412
+        raise PreconditionError, response
+      else
+        raise RequestError, response
+      end
     end
 
     def parse(response)

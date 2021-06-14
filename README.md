@@ -20,7 +20,6 @@ At the time of writing, this gem is definitely not ready for production, nor is 
 
 Other features on the roadmap, in a rough order of priority:
 
-* Solid exception handling.
 * Use WebDAV-Sync to get changes since last sync.
 * Enable locking/unlocking when making changes.
 * Allow requesting only certain properties for calendars/events.

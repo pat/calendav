@@ -43,12 +43,16 @@ module Calendav
         endpoint.delete(url: url)
       end
 
-      def list
+      def find(url)
+        list(url, depth: 0).first
+      end
+
+      def list(url = home_url, depth: 1)
         request = Requests::ListCalendars.call
         calendar_xpath = ".//dav:resourcetype/caldav:calendar"
 
         endpoint
-          .propfind(request.to_xml, url: home_url, depth: 1)
+          .propfind(request.to_xml, url: url, depth: depth)
           .xpath(".//dav:response")
           .select { |node| node.xpath(calendar_xpath).any? }
           .collect { |node| Calendar.from_xml(home_url, node) }

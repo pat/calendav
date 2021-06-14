@@ -7,18 +7,19 @@ At the time of writing, this gem is definitely not ready for production, nor is 
 * Determining the principal URL.
 * Determining the calendar home path.
 * Listing available calendars.
+* Find details of a single calendar at a URL.
 * Creating events on a calendar.
 * List all events on a calendar.
 * Listing events on a calendar within a given timespan.
-* Updating an event.
-* Deleting events on a calendar.
+* Find a single event at a URL.
+* Updating an event (with optional etag check).
+* Deleting events on a calendar (with optional etag check).
 * Create new calendars.
 * Update calendars.
 * Delete calendars.
 
 Other features on the roadmap, in a rough order of priority:
 
-* Enable etag validation for updates/deletions (If-Match header).
 * Use OPTIONS to confirm feature availability.
 * Solid response handling.
 * Solid exception handling.
@@ -75,8 +76,19 @@ event_url = client.events.create(calendar.url, identifier, ics.to_ical)
 
 ics.events.first.summary = "Updated Details"
 
+event = client.events.find(event_url)
+
+# Use the etag keyword argument to avoid overwriting other updates.
+# Will return false if the update failed due to the etag constraint.
+client.events.update(event_url, ics.to_ical, etag: event.etag)
+
+# If you exclude that argument, then the update will happen no matter what.
 client.events.update(event_url, ics.to_ical)
 
+# Deletions also accept the etag option - but not all CalDAV providers respect
+# it. Apple does, Google doesn't.
+client.events.delete(event_url, etag: event.etag)
+# Or, a guaranteed deletion:
 client.events.delete(event_url)
 ```
 

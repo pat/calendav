@@ -118,5 +118,36 @@ RSpec.describe "Apple" do
       expect(subject.events.delete(event_url)).to eq(true)
       expect(subject.events.delete(another_url)).to eq(true)
     end
+
+    it "respects etag conditions with updates and deletions" do
+      ics = Icalendar::Calendar.new
+      ics.event do |event|
+        event.dtstart = start.utc
+        event.dtend = finish.utc
+        event.summary = "Brunch"
+      end
+      ics.publish
+
+      event_url = subject.events.create(calendar_url, identifier, ics.to_ical)
+      event = subject.events.find(event_url)
+
+      ics.events.first.summary = "Coffee"
+      expect(
+        subject.events.update(event_url, ics.to_ical, etag: event.etag)
+      ).to eq(true)
+
+      expect(subject.events.find(event_url).summary).to eq("Coffee")
+
+      # Updating with the old etag should fail
+      ics.events.first.summary = "Brunch"
+      expect(
+        subject.events.update(event_url, ics.to_ical, etag: event.etag)
+      ).to eq(false)
+
+      expect(subject.events.find(event_url).summary).to eq("Coffee")
+
+      expect(subject.events.delete(event_url, etag: event.etag)).to eq(false)
+      expect(subject.events.delete(event_url)).to eq(true)
+    end
   end
 end

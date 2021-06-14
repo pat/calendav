@@ -16,8 +16,14 @@ module Calendav
       @credentials = credentials
     end
 
-    def delete(url:)
-      request(:delete, url: url).status.success?
+    def delete(url:, etag: nil)
+      request(:delete, url: url, http: with_headers(etag: etag))
+        .status
+        .success?
+    end
+
+    def get(url:)
+      request(:get, url: url)
     end
 
     def mkcalendar(body, url:)
@@ -47,12 +53,12 @@ module Calendav
       )
     end
 
-    def put(body, url:, content_type: nil)
+    def put(body, url:, content_type: nil, etag: nil)
       request(
         :put,
         body,
         url: url,
-        http: with_headers(content_type: content_type)
+        http: with_headers(content_type: content_type, etag: etag)
       )
     end
 
@@ -81,10 +87,11 @@ module Calendav
       end
     end
 
-    def with_headers(content_type: nil, depth: nil)
+    def with_headers(content_type: nil, depth: nil, etag: nil)
       http = authenticated
 
       http = http.headers(depth: depth) if depth
+      http = http.headers("If-Match" => etag) if etag
       if content_type
         http = http.headers("Content-Type" => CONTENT_TYPES[content_type])
       end
@@ -100,9 +107,17 @@ module Calendav
         raise RequestFailedError, response.status.to_s
       end
 
+      parse(response)
+    end
+
+    def parse(response)
       return response if response.content_length&.zero? || response.body.empty?
 
-      XMLProcessor.call(response.body)
+      if response.content_type.mime_type == "text/calendar"
+        response
+      else
+        XMLProcessor.call(response.body)
+      end
     end
   end
 end

@@ -6,6 +6,7 @@ require_relative "../calendar"
 require_relative "../requests/calendar_home_set"
 require_relative "../requests/list_calendars"
 require_relative "../requests/make_calendar"
+require_relative "../requests/update_calendar"
 
 module Calendav
   module Clients
@@ -51,6 +52,14 @@ module Calendav
           .xpath(".//dav:response")
           .select { |node| node.xpath(calendar_xpath).any? }
           .collect { |node| Calendar.from_xml(home_url, node) }
+      end
+
+      def update(url, attributes)
+        request = Requests::UpdateCalendar.call(attributes)
+        endpoint
+          .proppatch(request.to_xml, url: url)
+          .xpath(".//dav:status")
+          .text["200 OK"] == "200 OK"
       end
 
       private

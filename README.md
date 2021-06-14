@@ -10,14 +10,17 @@ At the time of writing, this gem is definitely not ready for production, nor is 
 * Creating events on a calendar.
 * List all events on a calendar.
 * Listing events on a calendar within a given timespan.
+* Updating an event.
 * Deleting events on a calendar.
 * Create new calendars.
+* Update calendars.
 * Delete calendars.
 
 Other features on the roadmap, in a rough order of priority:
 
-* Update calendars.
 * Enable etag validation for updates/deletions (If-Match header).
+* Use OPTIONS to confirm feature availability.
+* Solid response handling.
 * Solid exception handling.
 * Use WebDAV-Sync to get changes since last sync.
 * Enable locking/unlocking when making changes.
@@ -50,6 +53,10 @@ puts client.calendars.home_url
 calendars = client.calendars.list
 calendars.each { |calendar| puts calendar.url, calendar.display_name }
 
+calendar_url = client.calendars.create(display_name: "New Calendar")
+client.calendars.update(calendar_url, display_name: "Updated Calendar")
+client.calendars.delete(calendar_url)
+
 events = client.events.list(
   calendar.path, from: Time.new(2021, 1, 1), to: Time.new(2022, 1, 1)
 )
@@ -65,6 +72,10 @@ ics.publish
 identifier = "#{SecureRandom.uuid}.ics"
 # … but the server may change it on you, so the new, full URL is returned:
 event_url = client.events.create(calendar.url, identifier, ics.to_ical)
+
+ics.events.first.summary = "Updated Details"
+
+client.events.update(event_url, ics.to_ical)
 
 client.events.delete(event_url)
 ```

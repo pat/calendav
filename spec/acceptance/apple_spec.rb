@@ -23,7 +23,7 @@ RSpec.describe "Apple" do
       .to eq_encoded_url("https://p49-caldav.icloud.com/20264203208/calendars/")
   end
 
-  it "can create, find and delete calendars" do
+  it "can create, find, update and delete calendars" do
     identifier = SecureRandom.uuid
     time_zone = TZInfo::Timezone.get "UTC"
     ical_time_zone = time_zone.ical_timezone Time.now.utc
@@ -41,6 +41,13 @@ RSpec.describe "Apple" do
     calendars = subject.calendars.list
     expect(calendars.collect(&:display_name)).to include("Calendav Test")
 
+    expect(
+      subject.calendars.update(url, display_name: "Calendav Update")
+    ).to eq(true)
+
+    calendars = subject.calendars.list
+    expect(calendars.collect(&:display_name)).to include("Calendav Update")
+
     subject.calendars.delete(url)
   end
 
@@ -56,7 +63,7 @@ RSpec.describe "Apple" do
       subject.calendars.delete(calendar_url)
     end
 
-    it "can create, find and delete events" do
+    it "can create, find, update and delete events" do
       ics = Icalendar::Calendar.new
       ics.event do |event|
         event.dtstart = start.utc

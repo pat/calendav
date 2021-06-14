@@ -38,6 +38,15 @@ module Calendav
       )
     end
 
+    def proppatch(body, url: nil)
+      request(
+        :proppatch,
+        body,
+        url: url,
+        http: with_headers(content_type: :xml)
+      )
+    end
+
     def put(body, url:, content_type: nil)
       request(
         :put,

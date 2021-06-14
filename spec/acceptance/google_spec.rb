@@ -48,10 +48,18 @@ RSpec.describe "Google" do
     subject.calendars.delete(url)
   end
 
-  it "can find calendars" do
+  it "can find and update calendars" do
     calendars = subject.calendars.list
+    calendar = calendars.detect { |cal| cal.display_name == "Calendav Test" }
 
-    expect(calendars.collect(&:display_name)).to include("Calendav Test")
+    expect(calendar).to_not be_nil
+
+    subject.calendars.update(calendar.url, display_name: "Calendav Update")
+
+    calendars = subject.calendars.list
+    calendar = calendars.detect { |cal| cal.display_name == "Calendav Update" }
+
+    subject.calendars.update(calendar.url, display_name: "Calendav Test")
   end
 
   context "with a calendar" do

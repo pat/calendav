@@ -3,6 +3,7 @@
 * Support creating and deleting calendars.
 * Updating of events.
 * List all events on a calendar (no timespan required).
+* Updating of calendars.
 
 ## [0.0.1] - 2021-06-13
 

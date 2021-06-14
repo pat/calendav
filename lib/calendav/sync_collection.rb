@@ -2,12 +2,12 @@
 
 module Calendav
   class SyncCollection
-    attr_reader :changes, :deletions, :token
+    attr_reader :changes, :deletions, :sync_token
 
-    def initialize(changes, deletions, token)
+    def initialize(changes, deletions, sync_token)
       @changes = changes
       @deletions = deletions
-      @token = token
+      @sync_token = sync_token
     end
   end
 end

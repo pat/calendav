@@ -203,7 +203,7 @@ RSpec.describe "Apple" do
 
       subject.events.delete(second_url)
 
-      collection = subject.calendars.sync(calendar.url, collection.token)
+      collection = subject.calendars.sync(calendar.url, collection.sync_token)
       urls = collection.changes.collect(&:url)
       expect(urls.length).to eq(1)
       expect(urls[0]).to eq_encoded_url(first_url)

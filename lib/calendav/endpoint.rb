@@ -22,11 +22,11 @@ module Calendav
     end
 
     def get(url:)
-      request(:get, url: url)
+      parse request(:get, url: url)
     end
 
     def mkcalendar(body, url:)
-      request(
+      parse request(
         :mkcalendar,
         body,
         url: url,
@@ -39,7 +39,7 @@ module Calendav
     end
 
     def propfind(body, url: nil, depth: 0)
-      request(
+      parse request(
         :propfind,
         body,
         url: url,
@@ -48,7 +48,7 @@ module Calendav
     end
 
     def proppatch(body, url: nil)
-      request(
+      parse request(
         :proppatch,
         body,
         url: url,
@@ -57,7 +57,7 @@ module Calendav
     end
 
     def put(body, url:, content_type: nil, etag: nil)
-      request(
+      parse request(
         :put,
         body,
         url: url,
@@ -66,7 +66,7 @@ module Calendav
     end
 
     def report(body, url: nil, depth: 0)
-      request(
+      parse request(
         :report,
         body,
         url: url,
@@ -107,13 +107,11 @@ module Calendav
         verb, ContextualURL.call(credentials.host, url), body: body
       )
 
-      if response.status.success?
-        parse(response)
-      elsif response.status.code == 412
-        raise PreconditionError, response
-      else
-        raise RequestError, response
-      end
+      return response if response.status.success?
+
+      raise PreconditionError, response if response.status.code == 412
+
+      raise RequestError, response
     end
 
     def parse(response)

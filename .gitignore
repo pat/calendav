@@ -4,6 +4,7 @@
 /coverage/
 /doc/
 /pkg/
+/spec/data/radicale/collections/
 /spec/reports/
 /tmp/
 

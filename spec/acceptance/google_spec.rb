@@ -66,6 +66,13 @@ RSpec.describe "Google" do
     let(:start) { Time.new 2021, 6, 1, 10, 30 }
     let(:finish) { Time.new 2021, 6, 1, 12, 30 }
 
+    after :each do
+      subject
+        .events
+        .list(calendar.url)
+        .each { |event| subject.events.delete(event.url) }
+    end
+
     it "supports events" do
       expect(calendar.components).to include("VEVENT")
     end

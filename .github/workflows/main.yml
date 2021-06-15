@@ -5,18 +5,26 @@ on: [push,pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
+
+    - name: Run Radicale
+      run: docker run -v ${{ github.workspace }}/spec/data/radicale:/var/radicale --name radicale --publish 8000:8000 --detach xlrl/radicale
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.0.1
+
     - name: Install dependencies
       run: |
         gem install bundler
         bundle install
+
     - name: Rubocop
       run: bundle exec rubocop
+
     - name: RSpec
       env:
         APPLE_USERNAME: ${{ secrets.APPLE_USERNAME }}
@@ -25,4 +33,10 @@ jobs:
         GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         GOOGLE_USERNAME: ${{ secrets.GOOGLE_USERNAME }}
         GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+        RADICALE_USERNAME: test
+        RADICALE_PASSWORD: test
+        RADICALE_HOST: http://127.0.0.1:8000
       run: bundle exec rspec
+
+    - name: Stop Radicale
+      run: docker stop radicale

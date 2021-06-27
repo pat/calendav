@@ -32,15 +32,15 @@ module Calendav
       attr_reader :element
 
       def components
-        element
-          .xpath(".//caldav:supported-calendar-component-set/caldav:comp")
-          .collect { |node| node["name"] }
+        element.xpath(
+          ".//caldav:supported-calendar-component-set/caldav:comp"
+        ).collect { |node| node["name"] }
       end
 
       def reports
-        element
-          .xpath("//dav:supported-report-set/dav:supported-report/dav:report/*")
-          .collect(&:name)
+        element.xpath(
+          ".//dav:supported-report-set/dav:supported-report/dav:report/*"
+        ).collect(&:name)
       end
 
       def value(xpath)

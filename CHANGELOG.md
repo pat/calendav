@@ -2,6 +2,10 @@
 
 ...
 
+## 0.1.1 - 2021-06-28
+
+* Fix reports lists to just the relevant calendar.
+
 ## 0.1.0 - 2021-06-14
 
 * Support creating and deleting calendars.

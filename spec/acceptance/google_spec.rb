@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "google/apis/calendar_v3"
 require "googleauth"
 require "icalendar"
 require "securerandom"
@@ -12,20 +13,22 @@ RSpec.describe "Google" do
   let(:username) { ENV.fetch("GOOGLE_USERNAME") }
   let(:access_token) { @access_token }
   let(:credentials) { Calendav.credentials(provider, username, access_token) }
+  let(:google_auth) { @google_auth }
 
   subject { Calendav.client(credentials) }
 
   before :context do
+    @google_auth = Google::Auth::UserRefreshCredentials.new(
+      client_id: ENV.fetch("GOOGLE_CLIENT_ID"),
+      scope: [],
+      client_secret: ENV.fetch("GOOGLE_CLIENT_SECRET"),
+      refresh_token: ENV.fetch("GOOGLE_REFRESH_TOKEN"),
+      additional_parameters: { "access_type" => "offline" }
+    )
+
     @access_token = begin
-      credentials = Google::Auth::UserRefreshCredentials.new(
-        client_id: ENV.fetch("GOOGLE_CLIENT_ID"),
-        scope: [],
-        client_secret: ENV.fetch("GOOGLE_CLIENT_SECRET"),
-        refresh_token: ENV.fetch("GOOGLE_REFRESH_TOKEN"),
-        additional_parameters: { "access_type" => "offline" }
-      )
-      credentials.fetch_access_token!
-      credentials.access_token
+      @google_auth.fetch_access_token!
+      @google_auth.access_token
     end
   end
 
@@ -61,15 +64,20 @@ RSpec.describe "Google" do
 
   context "with a calendar" do
     let(:calendars) { subject.calendars.list }
-    let(:calendar) do
-      calendars.detect { |cal| cal.display_name == "Calendav Test" }
+    let(:calendar) { calendars.detect { |cal| cal.display_name == name } }
+    let(:name) { "Calendav Test #{Time.now.to_i}" }
+    let(:service) { Google::Apis::CalendarV3::CalendarService.new }
+    let(:entry) { Google::Apis::CalendarV3::Calendar.new(summary: name) }
+
+    before :each do
+      service.authorization = google_auth
+
+      result = service.insert_calendar entry
+      entry.update!(**result.to_h)
     end
 
     after :each do
-      subject
-        .events
-        .list(calendar.url)
-        .each { |event| subject.events.delete(event.url) }
+      service.delete_calendar entry.id
     end
 
     it_behaves_like "supporting event management"

@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "nokogiri"
 
   spec.add_development_dependency "dotenv"
+  spec.add_development_dependency "google-api-client"
   spec.add_development_dependency "googleauth"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"

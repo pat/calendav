@@ -105,6 +105,9 @@ RSpec.shared_examples "supporting event management" do
 
     expect(subject.events.find(event_url).summary).to eq("Coffee")
 
+    # Wait for server to catch up
+    sleep 1
+
     # Updating with the old etag should fail
     expect(
       subject.events.update(

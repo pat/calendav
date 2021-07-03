@@ -30,7 +30,7 @@ module Calendav
         response = endpoint.get(url: event_url)
 
         Event.new(
-          event_url,
+          url: event_url,
           calendar_data: response.body.to_s,
           etag: response.headers["ETag"]
         )

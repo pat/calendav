@@ -5,19 +5,28 @@ require_relative "./parsers/event_xml"
 
 module Calendav
   class Event
-    attr_reader :url, :calendar_data, :etag
+    ATTRIBUTES = %i[url calendar_data etag].freeze
 
     def self.from_xml(host, node)
       new(
-        ContextualURL.call(host, node.xpath("./dav:href").text),
-        Parsers::EventXML.call(node)
+        {
+          url: ContextualURL.call(host, node.xpath("./dav:href").text)
+        }.merge(
+          Parsers::EventXML.call(node)
+        )
       )
     end
 
-    def initialize(url, attributes = {})
-      @url = url
-      @calendar_data = attributes[:calendar_data]
-      @etag = attributes[:etag]
+    def initialize(attributes = {})
+      @attributes = attributes
+    end
+
+    ATTRIBUTES.each do |attribute|
+      define_method(attribute) { attributes[attribute] }
+    end
+
+    def to_h
+      attributes.dup
     end
 
     def summary
@@ -37,6 +46,8 @@ module Calendav
     end
 
     private
+
+    attr_reader :attributes
 
     def inner_calendar
       Icalendar::Calendar.parse(calendar_data).first

@@ -86,7 +86,7 @@ module Calendav
         HTTP.auth("Bearer #{credentials.password}")
       else
         raise "Unexpected authentication approach: " \
-          "#{credentials.authentication}"
+              "#{credentials.authentication}"
       end
     end
 

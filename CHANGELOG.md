@@ -2,6 +2,11 @@
 
 ...
 
+## 0.2.0 - 2021-07-07
+
+* Improve serialisation of Event and Calendar objects (easily converted to/from hashes).
+* Add `more?` to sync collection objects, indicating whether there are further changes available.
+
 ## 0.1.1 - 2021-06-28
 
 * Fix reports lists to just the relevant calendar.

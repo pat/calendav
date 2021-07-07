@@ -17,7 +17,7 @@ module Calendav
       end
 
       def call
-        SyncCollection.new(events, deleted_urls, token)
+        SyncCollection.new(events, deleted_urls, token, more?)
       end
 
       private
@@ -40,9 +40,21 @@ module Calendav
         @calendar_path ||= URI(calendar_url).path
       end
 
+      def calendar_response
+        multi_response
+          .detect { |node| node.xpath("./dav:href").text == calendar_path }
+      end
+
       def individual_responses
         multi_response
           .reject { |node| node.xpath("./dav:href").text == calendar_path }
+      end
+
+      def more?
+        return false if calendar_response.nil?
+
+        status = calendar_response.xpath("./dav:propstat/dav:status").text
+        !status["507 Insufficient Storage"].nil?
       end
 
       def token

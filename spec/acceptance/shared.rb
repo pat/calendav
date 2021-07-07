@@ -142,6 +142,7 @@ RSpec.shared_examples "supporting event management" do
       .to match_encoded_urls([first_url, second_url])
 
     expect(collection.deletions).to be_empty
+    expect(collection.more?).to eq(false)
 
     subject.events.update(first_url, update_summary(first, "Brunch"))
     subject.events.delete(second_url)
@@ -153,6 +154,7 @@ RSpec.shared_examples "supporting event management" do
 
     expect(collection.deletions.length).to eq(1)
     expect(collection.deletions.first).to eq_encoded_url(second_url)
+    expect(collection.more?).to eq(false)
 
     subject.events.delete(first_url)
   end

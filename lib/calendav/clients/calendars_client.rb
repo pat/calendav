@@ -64,7 +64,7 @@ module Calendav
         endpoint
           .propfind(request.to_xml, url: url, depth: depth)
           .select { |node| node.xpath(calendar_xpath).any? }
-          .collect { |node| Calendar.from_xml(home_url, node) }
+          .collect { |node| Calendar.from_xml(url, node) }
       end
 
       def options

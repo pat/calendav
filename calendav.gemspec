@@ -16,6 +16,7 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = spec.homepage
   spec.metadata["changelog_uri"] =
     "https://github.com/pat/calendav/blob/main/CHANGELOG.md"
+  spec.metadata["rubygems_mfa_required"] = "true"
 
   spec.files         = Dir["lib/**/*"] + %w[LICENSE.md README.md CHANGELOG.md]
   spec.test_files    = Dir["spec/**/*"] + %w[.rspec Gemfile Rakefile]

@@ -33,6 +33,10 @@ module Calendav
       inner_event.summary
     end
 
+    def location
+      inner_event.location
+    end
+
     def dtstart
       inner_event.dtstart
     end

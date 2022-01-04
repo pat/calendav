@@ -16,7 +16,7 @@ module Calendav
     PROVIDERS.fetch(provider).new(username: username, password: password)
   end
 
-  def self.client(credentials)
-    Client.new(credentials)
+  def self.client(credentials, timeout: nil)
+    Client.new(credentials, timeout: timeout)
   end
 end

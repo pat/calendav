@@ -8,8 +8,9 @@ require_relative "./requests/current_user_principal"
 
 module Calendav
   class Client
-    def initialize(credentials)
+    def initialize(credentials, timeout: nil)
       @credentials = credentials
+      @timeout = timeout
     end
 
     def calendars
@@ -34,10 +35,10 @@ module Calendav
 
     private
 
-    attr_reader :credentials
+    attr_reader :credentials, :timeout
 
     def endpoint
-      @endpoint ||= Endpoint.new(credentials)
+      @endpoint ||= Endpoint.new(credentials, timeout: timeout)
     end
   end
 end

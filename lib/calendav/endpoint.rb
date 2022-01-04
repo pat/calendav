@@ -11,8 +11,9 @@ module Calendav
       xml: "application/xml; charset=utf-8"
     }.freeze
 
-    def initialize(credentials)
+    def initialize(credentials, timeout: nil)
       @credentials = credentials
+      @timeout = timeout
     end
 
     def delete(url:, etag: nil)
@@ -76,7 +77,7 @@ module Calendav
 
     private
 
-    attr_reader :credentials
+    attr_reader :credentials, :timeout
 
     def authenticated
       case credentials.authentication
@@ -93,6 +94,7 @@ module Calendav
     def with_headers(content_type: nil, depth: nil, etag: nil)
       http = authenticated
 
+      http = http.timeout(timeout) if timeout
       http = http.headers(depth: depth) if depth
       http = http.headers("If-Match" => etag) if etag
       if content_type

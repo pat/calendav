@@ -1,0 +1,1 @@
+radicale: trap 'docker stop radicale' EXIT > /dev/null; docker run --volume ${PWD}/spec/data/radicale:/var/radicale --publish ${RADICALE_PORT:-5232}:8000 --name radicale xlrl/radicale; docker rm radicale

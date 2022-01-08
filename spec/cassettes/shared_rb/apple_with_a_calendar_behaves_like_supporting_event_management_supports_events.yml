@@ -1,0 +1,382 @@
+---
+http_interactions:
+- request:
+    method: propfind
+    uri: https://caldav.icloud.com/
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <dav:propfind xmlns:dav="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:apple="http://apple.com/ns/ical/">
+          <dav:prop>
+            <dav:current-user-principal/>
+          </dav:prop>
+        </dav:propfind>
+    headers:
+      Authorization:
+      - Basic Y2FsZW5kYXZ0ZXN0QGdtYWlsLmNvbTpwdWpsLWFkdW4taWNuci1ybnhq
+      Depth:
+      - '0'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Connection:
+      - close
+      Host:
+      - caldav.icloud.com
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 207
+      message: Multi-Status
+    headers:
+      Server:
+      - AppleHttpServer/f6f00135a2e1
+      Date:
+      - Sat, 08 Jan 2022 11:45:10 GMT
+      Content-Type:
+      - application/xml; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - close
+      X-Apple-Jingle-Correlation-Key:
+      - ITHB3TITLZAHTOSDCUJEWRIR3E
+      Apple-Seq:
+      - '0'
+      Apple-Tk:
+      - 'false'
+      Apple-Originating-System:
+      - UnknownOriginatingSystem
+      X-Responding-Instance:
+      - caldavj:44901101:pv42p49ic-zteg04052301:8501:2205B678:e2011d5ea974
+      X-Apple-Api-Version:
+      - NONE
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains;
+      X-Apple-User-Partition:
+      - '49'
+      Via:
+      - xrail:pv54p00ic-qujn11151101.me.com:8301:21D472:grp40,631194250daa17e24277dea86cf30319:9d6fb4dcbc9c93c2bc08d542e9f9ddf5:ausyd2
+      X-Apple-Request-Uuid:
+      - 44ce1dcd-135e-4079-ba43-15124b4511d9
+      Access-Control-Expose-Headers:
+      - X-Apple-Request-UUID,Via
+      X-Apple-Edge-Response-Time:
+      - '230'
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<multistatus
+        xmlns=\"DAV:\">\n\n    \n    <response xmlns=\"DAV:\">\n        <href>/</href>\n
+        \           <propstat>\n                <prop>\n                    \n                        \n
+        \                           <current-user-principal xmlns=\"DAV:\"><href xmlns=\"DAV:\">/20264203208/principal/</href></current-user-principal>\n
+        \                       \n                    \n                </prop>\n
+        \               <status>HTTP/1.1 200 OK</status>\n            </propstat>\n
+        \           \n    </response>\n    \n    \n    \n    \n    \n    \n\n\n</multistatus>"
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+- request:
+    method: propfind
+    uri: https://caldav.icloud.com/20264203208/principal/
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <dav:propfind xmlns:dav="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:apple="http://apple.com/ns/ical/">
+          <dav:prop>
+            <caldav:calendar-home-set/>
+          </dav:prop>
+        </dav:propfind>
+    headers:
+      Authorization:
+      - Basic Y2FsZW5kYXZ0ZXN0QGdtYWlsLmNvbTpwdWpsLWFkdW4taWNuci1ybnhq
+      Depth:
+      - '0'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Connection:
+      - close
+      Host:
+      - caldav.icloud.com
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 207
+      message: Multi-Status
+    headers:
+      Server:
+      - AppleHttpServer/f6f00135a2e1
+      Date:
+      - Sat, 08 Jan 2022 11:45:10 GMT
+      Content-Type:
+      - application/xml; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - close
+      X-Apple-Jingle-Correlation-Key:
+      - 7TK27FUBCREB7FF4OHTMAPZHBE
+      Apple-Seq:
+      - '0'
+      Apple-Tk:
+      - 'false'
+      Apple-Originating-System:
+      - UnknownOriginatingSystem
+      X-Responding-Instance:
+      - caldavj:44901701:pv51p49ic-qukt21061102:8501:2205B678:e2011d5ea974
+      X-Apple-Api-Version:
+      - NONE
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains;
+      X-Apple-User-Partition:
+      - '49'
+      Via:
+      - xrail:pv54p00ic-qujn05142301.me.com:8301:21D472:grp40,631194250daa17e24277dea86cf30319:9d6fb4dcbc9c93c2bc08d542e9f9ddf5:ausyd2
+      X-Apple-Request-Uuid:
+      - fcd5af96-8114-481f-94bc-71e6c03f2709
+      Access-Control-Expose-Headers:
+      - X-Apple-Request-UUID,Via
+      X-Apple-Edge-Response-Time:
+      - '230'
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<multistatus
+        xmlns=\"DAV:\">\n\n<response xmlns=\"DAV:\">\n    <href>/20264203208/principal/</href>\n
+        \       <propstat>\n    \t\t <prop>\n                \n                    \n
+        \                       <calendar-home-set xmlns=\"urn:ietf:params:xml:ns:caldav\"><href
+        xmlns=\"DAV:\">https://p49-caldav.icloud.com:443/20264203208/calendars/</href></calendar-home-set>\n
+        \                   \n                \n            </prop>\n                <status>HTTP/1.1
+        200 OK</status>\n        </propstat>\n        \n</response>\n\n\n</multistatus>"
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+- request:
+    method: mkcalendar
+    uri: https://p49-caldav.icloud.com/20264203208/calendars/51928be1a882f97337b633c59b6b5893/
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <caldav:mkcalendar xmlns:dav="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:apple="http://apple.com/ns/ical/">
+          <dav:set>
+            <dav:prop>
+              <dav:displayname>Calendav Test</dav:displayname>
+              <caldav:supported-calendar-component-set>
+                <caldav:comp name="VEVENT"/>
+              </caldav:supported-calendar-component-set>
+            </dav:prop>
+          </dav:set>
+        </caldav:mkcalendar>
+    headers:
+      Authorization:
+      - Basic Y2FsZW5kYXZ0ZXN0QGdtYWlsLmNvbTpwdWpsLWFkdW4taWNuci1ybnhq
+      Content-Type:
+      - application/xml; charset=utf-8
+      Connection:
+      - close
+      Host:
+      - p49-caldav.icloud.com
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - AppleHttpServer/f6f00135a2e1
+      Date:
+      - Sat, 08 Jan 2022 11:45:11 GMT
+      Content-Length:
+      - '0'
+      Connection:
+      - close
+      X-Apple-Jingle-Correlation-Key:
+      - KFPA7V7TVZCHNEAUO3KHI5AKXI
+      Apple-Seq:
+      - '0'
+      Apple-Tk:
+      - 'false'
+      Apple-Originating-System:
+      - UnknownOriginatingSystem
+      X-Responding-Instance:
+      - caldavj:44900201:pv42p49ic-zteg04062301:8501:2205B678:e2011d5ea974
+      X-Apple-Api-Version:
+      - v1
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains;
+      X-Apple-User-Partition:
+      - '49'
+      Via:
+      - xrail:pv54p00ic-qujn11153201.me.com:8301:21D472:grp40,631194250daa17e24277dea86cf30319:9d6fb4dcbc9c93c2bc08d542e9f9ddf5:ausyd2
+      X-Apple-Request-Uuid:
+      - 515e0fd7-f3ae-4476-9014-76d474740aba
+      Access-Control-Expose-Headers:
+      - X-Apple-Request-UUID,Via
+      X-Apple-Edge-Response-Time:
+      - '640'
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+- request:
+    method: propfind
+    uri: https://p49-caldav.icloud.com/20264203208/calendars/51928be1a882f97337b633c59b6b5893/
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <dav:propfind xmlns:dav="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:apple="http://apple.com/ns/ical/">
+          <dav:prop>
+            <dav:displayname/>
+            <dav:resourcetype/>
+            <dav:getetag/>
+            <cs:getctag/>
+            <apple:calendar-color/>
+            <dav:supported-report-set/>
+            <caldav:supported-calendar-component-set/>
+          </dav:prop>
+        </dav:propfind>
+    headers:
+      Authorization:
+      - Basic Y2FsZW5kYXZ0ZXN0QGdtYWlsLmNvbTpwdWpsLWFkdW4taWNuci1ybnhq
+      Depth:
+      - '0'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Connection:
+      - close
+      Host:
+      - p49-caldav.icloud.com
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 207
+      message: Multi-Status
+    headers:
+      Server:
+      - AppleHttpServer/f6f00135a2e1
+      Date:
+      - Sat, 08 Jan 2022 11:45:11 GMT
+      Content-Type:
+      - application/xml; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - close
+      X-Apple-Jingle-Correlation-Key:
+      - ESL6WL7M3NFQVM6JTQKR5UCVH4
+      Apple-Seq:
+      - '0'
+      Apple-Tk:
+      - 'false'
+      Apple-Originating-System:
+      - UnknownOriginatingSystem
+      X-Responding-Instance:
+      - caldavj:44900201:pv42p49ic-zteg04062301:8501:2205B678:e2011d5ea974
+      X-Apple-Api-Version:
+      - NONE
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains;
+      X-Apple-User-Partition:
+      - '49'
+      Via:
+      - xrail:pv54p00ic-qujn11151301.me.com:8301:21D472:grp40,631194250daa17e24277dea86cf30319:9d6fb4dcbc9c93c2bc08d542e9f9ddf5:ausyd2
+      X-Apple-Request-Uuid:
+      - 2497eb2f-ecdb-4b0a-b3c9-9c151ed0553f
+      Access-Control-Expose-Headers:
+      - X-Apple-Request-UUID,Via
+      X-Apple-Edge-Response-Time:
+      - '395'
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<multistatus
+        xmlns=\"DAV:\">\n\n    \n    \n    \n        \n        <response xmlns=\"DAV:\">\n
+        \           <href>/20264203208/calendars/51928be1a882f97337b633c59b6b5893/</href>\n
+        \           \n                <propstat>\n                    <prop>\n                        \n
+        \                           \n                                <displayname
+        xmlns=\"DAV:\">Calendav Test</displayname>\n                            \n
+        \                       \n                            \n                                <resourcetype
+        xmlns=\"DAV:\"><collection/><calendar xmlns=\"urn:ietf:params:xml:ns:caldav\"/></resourcetype>\n
+        \                           \n                        \n                            \n
+        \                               <getetag xmlns=\"DAV:\">\"ky5rg1yx\"</getetag>\n
+        \                           \n                        \n                            \n
+        \                               <getctag xmlns=\"http://calendarserver.org/ns/\">HwoQEgwAAAAAAAAAAAAAAAAYARgAIhUI2p+xwMb6o/gXELGvs/DmnLTJjAEoAA==</getctag>\n
+        \                           \n                        \n                            \n
+        \                           \n                        \n                            \n
+        \                               <supported-report-set xmlns=\"DAV:\"><supported-report><report><acl-principal-prop-set></acl-principal-prop-set></report></supported-report><supported-report><report><principal-match></principal-match></report></supported-report><supported-report><report><principal-property-search></principal-property-search></report></supported-report><supported-report><report><sync-collection></sync-collection></report></supported-report><supported-report><report><calendar-query
+        xmlns=\"urn:ietf:params:xml:ns:caldav\"></calendar-query></report></supported-report><supported-report><report><calendar-multiget
+        xmlns=\"urn:ietf:params:xml:ns:caldav\"></calendar-multiget></report></supported-report><supported-report><report><free-busy-query
+        xmlns=\"urn:ietf:params:xml:ns:caldav\"></free-busy-query></report></supported-report><supported-report><report><calendar-search
+        xmlns=\"http://calendarserver.org/ns/\"></calendar-search></report></supported-report></supported-report-set>\n
+        \                           \n                        \n                            \n
+        \                               <supported-calendar-component-set xmlns=\"urn:ietf:params:xml:ns:caldav\"><comp
+        name='VEVENT' xmlns='urn:ietf:params:xml:ns:caldav'/></supported-calendar-component-set>\n
+        \                           \n                        \n                    </prop>\n
+        \                   <status>HTTP/1.1 200 OK</status>\n                </propstat>\n
+        \               \n                    <propstat>\n                        <prop>\n
+        \                           \n                                \n                            \n
+        \                               \n                            \n                                \n
+        \                           \n                                \n                            \n
+        \                               \n                                    <calendar-color
+        xmlns=\"http://apple.com/ns/ical/\"/>\n                                \n
+        \                           \n                                \n                            \n
+        \                               \n                            \n                        </prop>\n
+        \                       <status>HTTP/1.1 404 Not Found</status>\n                    </propstat>\n
+        \               \n            \n        </response>\n        \n    \n    \n
+        \   \n    \n\n\n</multistatus>"
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+- request:
+    method: delete
+    uri: https://p49-caldav.icloud.com/20264203208/calendars/51928be1a882f97337b633c59b6b5893/
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - Basic Y2FsZW5kYXZ0ZXN0QGdtYWlsLmNvbTpwdWpsLWFkdW4taWNuci1ybnhq
+      Connection:
+      - close
+      Host:
+      - p49-caldav.icloud.com
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Server:
+      - AppleHttpServer/f6f00135a2e1
+      Date:
+      - Sat, 08 Jan 2022 11:45:13 GMT
+      Connection:
+      - close
+      X-Apple-Jingle-Correlation-Key:
+      - U525E3ZVRFC5DCKT373XPISEXM
+      Apple-Seq:
+      - '0'
+      Apple-Tk:
+      - 'false'
+      Apple-Originating-System:
+      - UnknownOriginatingSystem
+      X-Responding-Instance:
+      - caldavj:44900501:pv42p49ic-zteg04092101:8501:2205B678:e2011d5ea974
+      X-Apple-Api-Version:
+      - v1
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains;
+      X-Apple-User-Partition:
+      - '49'
+      Via:
+      - xrail:pv54p00ic-qujn11153201.me.com:8301:21D472:grp40,631194250daa17e24277dea86cf30319:9d6fb4dcbc9c93c2bc08d542e9f9ddf5:ausyd2
+      X-Apple-Request-Uuid:
+      - a775d26f-3589-45d1-8953-dff777a244bb
+      Access-Control-Expose-Headers:
+      - X-Apple-Request-UUID,Via
+      X-Apple-Edge-Response-Time:
+      - '1292'
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+recorded_with: VCR 6.0.0

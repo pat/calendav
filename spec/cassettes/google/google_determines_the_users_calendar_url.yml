@@ -1,0 +1,216 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://oauth2.googleapis.com/token
+    body:
+      encoding: ASCII-8BIT
+      string: grant_type=refresh_token&refresh_token=1%2F%2F0gEO5Fu33tuZtCgYIARAAGBASNwF-L9IrKvnQuvgFAyzU97wabD1-CHvDMid8nt-S0XslzldWHUjR6MpTAOM0eZAd7xThrQiU3yc&client_id=152371982526-11egrs53lnlc51d6fv9hn860sbo1ff0k.apps.googleusercontent.com&client_secret=Rceo9RSHTRx7CMWIrTYaiGRT&access_type=offline
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Date:
+      - Sat, 08 Jan 2022 11:18:32 GMT
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Server:
+      - scaffolding on HTTPServer2
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "access_token": "ya29.a0ARrdaM-kv6U8CpxIWHqR_7p9oqBo_AOQCb-iQzBudBVATm1sEYZ1XCjao-wvssaBhgu6sdkxzFnkXNwBl0KkHgveMAoTFwV3d1NXONLK3nQyGCZVL0h87TlxcBF8_fyHfBFGhJ4IOL21iOXqPGV2hTqaqDRGIN0",
+          "expires_in": 3599,
+          "scope": "https://www.googleapis.com/auth/calendar.events.public.readonly https://www.googleapis.com/auth/calendar.app.created https://www.googleapis.com/auth/calendar.calendars.readonly https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.calendarlist https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events.owned.readonly https://www.googleapis.com/auth/calendar.calendarlist.readonly https://www.googleapis.com/auth/calendar.events.owned https://www.googleapis.com/auth/calendar.events.freebusy https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.calendars",
+          "token_type": "Bearer"
+        }
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+- request:
+    method: propfind
+    uri: https://apidata.googleusercontent.com/caldav/v2/
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <dav:propfind xmlns:dav="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:apple="http://apple.com/ns/ical/">
+          <dav:prop>
+            <dav:current-user-principal/>
+          </dav:prop>
+        </dav:propfind>
+    headers:
+      Authorization:
+      - Bearer ya29.a0ARrdaM-kv6U8CpxIWHqR_7p9oqBo_AOQCb-iQzBudBVATm1sEYZ1XCjao-wvssaBhgu6sdkxzFnkXNwBl0KkHgveMAoTFwV3d1NXONLK3nQyGCZVL0h87TlxcBF8_fyHfBFGhJ4IOL21iOXqPGV2hTqaqDRGIN0
+      Depth:
+      - '0'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Connection:
+      - close
+      Host:
+      - apidata.googleusercontent.com
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 207
+      message: Multi-Status
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Date:
+      - Sat, 08 Jan 2022 11:18:33 GMT
+      Content-Type:
+      - text/xml; charset=UTF-8
+      Content-Length:
+      - '618'
+      Pragma:
+      - no-cache
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Server:
+      - ESF
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <D:multistatus xmlns:D="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:ical="http://apple.com/ns/ical/">
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <D:current-user-principal>
+             <D:href>/caldav/v2/calendavtest%40gmail.com/user</D:href>
+            </D:current-user-principal>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+        </D:multistatus>
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+- request:
+    method: propfind
+    uri: https://apidata.googleusercontent.com/caldav/v2/calendavtest@gmail.com/user
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <dav:propfind xmlns:dav="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:apple="http://apple.com/ns/ical/">
+          <dav:prop>
+            <caldav:calendar-home-set/>
+          </dav:prop>
+        </dav:propfind>
+    headers:
+      Authorization:
+      - Bearer ya29.a0ARrdaM-kv6U8CpxIWHqR_7p9oqBo_AOQCb-iQzBudBVATm1sEYZ1XCjao-wvssaBhgu6sdkxzFnkXNwBl0KkHgveMAoTFwV3d1NXONLK3nQyGCZVL0h87TlxcBF8_fyHfBFGhJ4IOL21iOXqPGV2hTqaqDRGIN0
+      Depth:
+      - '0'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Connection:
+      - close
+      Host:
+      - apidata.googleusercontent.com
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 207
+      message: Multi-Status
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Date:
+      - Sat, 08 Jan 2022 11:18:34 GMT
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Content-Type:
+      - text/xml; charset=UTF-8
+      Content-Length:
+      - '641'
+      Dav:
+      - 1, calendar-access, calendar-schedule, calendar-auto-schedule, calendar-proxy
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Server:
+      - ESF
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <D:multistatus xmlns:D="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:ical="http://apple.com/ns/ical/">
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/calendavtest@gmail.com/user</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <caldav:calendar-home-set>
+             <D:href>/caldav/v2/calendavtest%40gmail.com/</D:href>
+            </caldav:calendar-home-set>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+        </D:multistatus>
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+recorded_with: VCR 6.0.0

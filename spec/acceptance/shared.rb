@@ -11,7 +11,7 @@ RSpec.shared_examples "supporting calendar management" do
   end
 
   it "can create, find, update and delete calendars" do
-    identifier = SecureRandom.uuid
+    identifier = "calendav-test"
     time_zone = TZInfo::Timezone.get "UTC"
     ical_time_zone = time_zone.ical_timezone Time.now.utc
 
@@ -51,7 +51,7 @@ RSpec.shared_examples "supporting event management" do
   it "can create, find, update and delete events" do
     # Create an event
     event_url = subject.events.create(
-      calendar.url, event_identifier, ical_event("Brunch", 10, 30)
+      calendar.url, "calendav-event-1.ics", ical_event("Brunch", 10, 30)
     )
     expect(event_url).to include(URI.decode_www_form_component(calendar.url))
     event = subject.events.find(event_url)
@@ -79,7 +79,7 @@ RSpec.shared_examples "supporting event management" do
 
     # Create another event
     another_url = subject.events.create(
-      calendar.url, event_identifier, ical_event("Brunch", 10, 30)
+      calendar.url, "calendav-event-2.ics", ical_event("Brunch", 10, 30)
     )
 
     # Search for all events
@@ -93,7 +93,7 @@ RSpec.shared_examples "supporting event management" do
 
   it "respects etag conditions with updates" do
     event_url = subject.events.create(
-      calendar.url, event_identifier, ical_event("Brunch", 10, 30)
+      calendar.url, "calendav-event.ics", ical_event("Brunch", 10, 30)
     )
     event = subject.events.find(event_url)
 
@@ -122,7 +122,7 @@ RSpec.shared_examples "supporting event management" do
 
   it "handles synchronisation requests" do
     first_url = subject.events.create(
-      calendar.url, event_identifier, ical_event("Brunch", 10, 30)
+      calendar.url, "calendav-event-1.ics", ical_event("Brunch", 10, 30)
     )
     first = subject.events.find(first_url)
     token = subject.calendars.find(calendar.url, sync: true).sync_token
@@ -131,7 +131,7 @@ RSpec.shared_examples "supporting event management" do
     expect(events.length).to eq(1)
 
     second_url = subject.events.create(
-      calendar.url, event_identifier, ical_event("Brunch Again", 11, 30)
+      calendar.url, "calendav-event-2.ics", ical_event("Brunch Again", 11, 30)
     )
 
     subject.events.update(first_url, update_summary(first, "Coffee"))
@@ -163,7 +163,7 @@ end
 RSpec.shared_examples "supporting event deletion with etags" do
   it "respects etag conditions with deletions" do
     event_url = subject.events.create(
-      calendar.url, event_identifier, ical_event("Brunch", 10, 30)
+      calendar.url, "calendav-event.ics", ical_event("Brunch", 10, 30)
     )
     event = subject.events.find(event_url)
 

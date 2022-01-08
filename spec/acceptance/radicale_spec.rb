@@ -34,7 +34,7 @@ RSpec.describe "Radicale" do
 
   context "with a calendar" do
     let(:calendar_url) do
-      subject.calendars.create(SecureRandom.uuid, display_name: "Calendav Test")
+      subject.calendars.create("calendav-test", display_name: "Calendav Test")
     end
     let(:calendar) { subject.calendars.find(calendar_url) }
 

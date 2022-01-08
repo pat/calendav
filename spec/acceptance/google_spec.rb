@@ -8,7 +8,7 @@ require "uri"
 
 require_relative "./shared"
 
-RSpec.describe "Google" do
+RSpec.describe "Google", :vcr do
   let(:provider) { :google }
   let(:username) { ENV.fetch("GOOGLE_USERNAME") }
   let(:access_token) { @access_token }
@@ -17,7 +17,7 @@ RSpec.describe "Google" do
 
   subject { Calendav.client(credentials) }
 
-  before :context do
+  before :each do
     @google_auth = Google::Auth::UserRefreshCredentials.new(
       client_id: ENV.fetch("GOOGLE_CLIENT_ID"),
       scope: [],
@@ -84,7 +84,7 @@ RSpec.describe "Google" do
 
     it "does not respect etag conditions for deletions" do
       event_url = subject.events.create(
-        calendar.url, event_identifier, ical_event("Brunch", 10, 30)
+        calendar.url, "calendav-event.ics", ical_event("Brunch", 10, 30)
       )
       event = subject.events.find(event_url)
 

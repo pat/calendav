@@ -35,5 +35,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "timecop"
   spec.add_development_dependency "tzinfo"
+  spec.add_development_dependency "vcr"
+  spec.add_development_dependency "vcr_assistant"
+  spec.add_development_dependency "webmock"
 end

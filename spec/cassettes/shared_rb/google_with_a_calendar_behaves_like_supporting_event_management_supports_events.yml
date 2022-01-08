@@ -1,0 +1,856 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://oauth2.googleapis.com/token
+    body:
+      encoding: ASCII-8BIT
+      string: grant_type=refresh_token&refresh_token=1%2F%2F0gEO5Fu33tuZtCgYIARAAGBASNwF-L9IrKvnQuvgFAyzU97wabD1-CHvDMid8nt-S0XslzldWHUjR6MpTAOM0eZAd7xThrQiU3yc&client_id=152371982526-11egrs53lnlc51d6fv9hn860sbo1ff0k.apps.googleusercontent.com&client_secret=Rceo9RSHTRx7CMWIrTYaiGRT&access_type=offline
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Date:
+      - Sat, 08 Jan 2022 11:18:54 GMT
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Server:
+      - scaffolding on HTTPServer2
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "access_token": "ya29.a0ARrdaM-cry6cu5xjGeOoo3vXMSPahWQ-8gooRnavhr1G2xD1vTKN40Env9jy8MVNvRSKgQHyinYaHs6FRuewYe5PY3p08tTkCmaQQTrX5RN_i7emyFSnao2k04fEj0Zx8QEpk277PnRYQ_bFrC005YFvPd-TIas",
+          "expires_in": 3599,
+          "scope": "https://www.googleapis.com/auth/calendar.events.owned https://www.googleapis.com/auth/calendar.calendarlist https://www.googleapis.com/auth/calendar.app.created https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.calendars.readonly https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.events.freebusy https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.calendars https://www.googleapis.com/auth/calendar.events.public.readonly https://www.googleapis.com/auth/calendar.events.owned.readonly https://www.googleapis.com/auth/calendar.calendarlist.readonly https://www.googleapis.com/auth/calendar.readonly",
+          "token_type": "Bearer"
+        }
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+- request:
+    method: post
+    uri: https://www.googleapis.com/calendar/v3/calendars
+    body:
+      encoding: UTF-8
+      string: '{"summary":"Calendav Test 1640995200"}'
+    headers:
+      User-Agent:
+      - unknown/0.0.0 google-api-ruby-client/0.4.1 Mac OS X/12.1 (gzip)
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip,deflate
+      Date:
+      - Sat, 01 Jan 2022 00:00:00 GMT
+      X-Goog-Api-Client:
+      - gl-ruby/3.0.3 gdcl/1.4.1
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer ya29.a0ARrdaM-cry6cu5xjGeOoo3vXMSPahWQ-8gooRnavhr1G2xD1vTKN40Env9jy8MVNvRSKgQHyinYaHs6FRuewYe5PY3p08tTkCmaQQTrX5RN_i7emyFSnao2k04fEj0Zx8QEpk277PnRYQ_bFrC005YFvPd-TIas
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Etag:
+      - '"VmEovAHHYR-MSiEsG9vl6ZX34Jw"'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Date:
+      - Sat, 08 Jan 2022 11:18:56 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Content-Encoding:
+      - gzip
+      Server:
+      - ESF
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "calendar#calendar",
+         "etag": "\"VmEovAHHYR-MSiEsG9vl6ZX34Jw\"",
+         "id": "74pebmv433s9643c52m4534mjg@group.calendar.google.com",
+         "summary": "Calendav Test 1640995200",
+         "timeZone": "UTC",
+         "conferenceProperties": {
+          "allowedConferenceSolutionTypes": [
+           "hangoutsMeet"
+          ]
+         }
+        }
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+- request:
+    method: propfind
+    uri: https://apidata.googleusercontent.com/caldav/v2/
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <dav:propfind xmlns:dav="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:apple="http://apple.com/ns/ical/">
+          <dav:prop>
+            <dav:current-user-principal/>
+          </dav:prop>
+        </dav:propfind>
+    headers:
+      Authorization:
+      - Bearer ya29.a0ARrdaM-cry6cu5xjGeOoo3vXMSPahWQ-8gooRnavhr1G2xD1vTKN40Env9jy8MVNvRSKgQHyinYaHs6FRuewYe5PY3p08tTkCmaQQTrX5RN_i7emyFSnao2k04fEj0Zx8QEpk277PnRYQ_bFrC005YFvPd-TIas
+      Depth:
+      - '0'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Connection:
+      - close
+      Host:
+      - apidata.googleusercontent.com
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 207
+      message: Multi-Status
+    headers:
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Content-Type:
+      - text/xml; charset=UTF-8
+      Pragma:
+      - no-cache
+      Date:
+      - Sat, 08 Jan 2022 11:18:57 GMT
+      Content-Length:
+      - '618'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Server:
+      - ESF
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <D:multistatus xmlns:D="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:ical="http://apple.com/ns/ical/">
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <D:current-user-principal>
+             <D:href>/caldav/v2/calendavtest%40gmail.com/user</D:href>
+            </D:current-user-principal>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+        </D:multistatus>
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+- request:
+    method: propfind
+    uri: https://apidata.googleusercontent.com/caldav/v2/calendavtest@gmail.com/user
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <dav:propfind xmlns:dav="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:apple="http://apple.com/ns/ical/">
+          <dav:prop>
+            <caldav:calendar-home-set/>
+          </dav:prop>
+        </dav:propfind>
+    headers:
+      Authorization:
+      - Bearer ya29.a0ARrdaM-cry6cu5xjGeOoo3vXMSPahWQ-8gooRnavhr1G2xD1vTKN40Env9jy8MVNvRSKgQHyinYaHs6FRuewYe5PY3p08tTkCmaQQTrX5RN_i7emyFSnao2k04fEj0Zx8QEpk277PnRYQ_bFrC005YFvPd-TIas
+      Depth:
+      - '0'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Connection:
+      - close
+      Host:
+      - apidata.googleusercontent.com
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 207
+      message: Multi-Status
+    headers:
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '641'
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Date:
+      - Sat, 08 Jan 2022 11:18:57 GMT
+      Content-Type:
+      - text/xml; charset=UTF-8
+      Dav:
+      - 1, calendar-access, calendar-schedule, calendar-auto-schedule, calendar-proxy
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Server:
+      - ESF
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <D:multistatus xmlns:D="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:ical="http://apple.com/ns/ical/">
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/calendavtest@gmail.com/user</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <caldav:calendar-home-set>
+             <D:href>/caldav/v2/calendavtest%40gmail.com/</D:href>
+            </caldav:calendar-home-set>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+        </D:multistatus>
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+- request:
+    method: propfind
+    uri: https://apidata.googleusercontent.com/caldav/v2/calendavtest@gmail.com/
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <dav:propfind xmlns:dav="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:apple="http://apple.com/ns/ical/">
+          <dav:prop>
+            <dav:displayname/>
+            <dav:resourcetype/>
+            <dav:getetag/>
+            <cs:getctag/>
+            <apple:calendar-color/>
+            <dav:supported-report-set/>
+            <caldav:supported-calendar-component-set/>
+          </dav:prop>
+        </dav:propfind>
+    headers:
+      Authorization:
+      - Bearer ya29.a0ARrdaM-cry6cu5xjGeOoo3vXMSPahWQ-8gooRnavhr1G2xD1vTKN40Env9jy8MVNvRSKgQHyinYaHs6FRuewYe5PY3p08tTkCmaQQTrX5RN_i7emyFSnao2k04fEj0Zx8QEpk277PnRYQ_bFrC005YFvPd-TIas
+      Depth:
+      - '1'
+      Content-Type:
+      - application/xml; charset=utf-8
+      Connection:
+      - close
+      Host:
+      - apidata.googleusercontent.com
+      User-Agent:
+      - http.rb/5.0.4
+  response:
+    status:
+      code: 207
+      message: Multi-Status
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Content-Length:
+      - '13322'
+      Pragma:
+      - no-cache
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Content-Type:
+      - text/xml; charset=UTF-8
+      Date:
+      - Sat, 08 Jan 2022 11:18:58 GMT
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Server:
+      - ESF
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <D:multistatus xmlns:D="DAV:" xmlns:caldav="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/" xmlns:ical="http://apple.com/ns/ical/">
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/calendavtest@gmail.com/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <D:supported-report-set>
+             <D:supported-report>
+              <D:report>
+               <D:sync-collection/>
+              </D:report>
+             </D:supported-report>
+            </D:supported-report-set>
+            <D:resourcetype>
+             <D:collection/>
+            </D:resourcetype>
+           </D:prop>
+          </D:propstat>
+          <D:propstat>
+           <D:status>HTTP/1.1 404 Not Found</D:status>
+           <D:prop>
+            <D:displayname/>
+            <D:getetag/>
+            <cs:getctag/>
+            <ical:calendar-color/>
+            <caldav:supported-calendar-component-set/>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/calendavtest%40gmail.com/events/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <D:displayname>Calendav Test</D:displayname>
+            <cs:getctag>63777323936</cs:getctag>
+            <D:supported-report-set>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-multiget/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-query/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <D:sync-collection/>
+              </D:report>
+             </D:supported-report>
+            </D:supported-report-set>
+            <ical:calendar-color>#9FE1E7FF</ical:calendar-color>
+            <caldav:supported-calendar-component-set>
+             <caldav:comp name="VEVENT"/>
+            </caldav:supported-calendar-component-set>
+            <D:resourcetype>
+             <D:collection/>
+             <caldav:calendar/>
+            </D:resourcetype>
+           </D:prop>
+          </D:propstat>
+          <D:propstat>
+           <D:status>HTTP/1.1 404 Not Found</D:status>
+           <D:prop>
+            <D:getetag/>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/calendavtest%40gmail.com/user</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <D:displayname>Pat Allan</D:displayname>
+            <D:supported-report-set>
+             <D:supported-report>
+              <D:report>
+               <D:expand-property/>
+              </D:report>
+             </D:supported-report>
+            </D:supported-report-set>
+            <D:resourcetype>
+             <D:collection/>
+             <D:principal/>
+            </D:resourcetype>
+           </D:prop>
+          </D:propstat>
+          <D:propstat>
+           <D:status>HTTP/1.1 404 Not Found</D:status>
+           <D:prop>
+            <D:getetag/>
+            <cs:getctag/>
+            <ical:calendar-color/>
+            <caldav:supported-calendar-component-set/>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/calendavtest%40gmail.com/inbox/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <cs:getctag>never-changes</cs:getctag>
+            <D:resourcetype>
+             <D:collection/>
+             <caldav:schedule-inbox/>
+            </D:resourcetype>
+           </D:prop>
+          </D:propstat>
+          <D:propstat>
+           <D:status>HTTP/1.1 404 Not Found</D:status>
+           <D:prop>
+            <D:displayname/>
+            <D:getetag/>
+            <ical:calendar-color/>
+            <D:supported-report-set/>
+            <caldav:supported-calendar-component-set/>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/calendavtest%40gmail.com/outbox/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <cs:getctag>never-changes</cs:getctag>
+            <D:resourcetype>
+             <D:collection/>
+             <caldav:schedule-outbox/>
+            </D:resourcetype>
+           </D:prop>
+          </D:propstat>
+          <D:propstat>
+           <D:status>HTTP/1.1 404 Not Found</D:status>
+           <D:prop>
+            <D:displayname/>
+            <D:getetag/>
+            <ical:calendar-color/>
+            <D:supported-report-set/>
+            <caldav:supported-calendar-component-set/>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/1qlq4td0v90fodbtgum1sa0c9g%40group.calendar.google.com/events/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <D:displayname>Calendav Test</D:displayname>
+            <cs:getctag>63760525950</cs:getctag>
+            <D:supported-report-set>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-multiget/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-query/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <D:sync-collection/>
+              </D:report>
+             </D:supported-report>
+            </D:supported-report-set>
+            <ical:calendar-color>#42D692FF</ical:calendar-color>
+            <caldav:supported-calendar-component-set>
+             <caldav:comp name="VEVENT"/>
+            </caldav:supported-calendar-component-set>
+            <D:resourcetype>
+             <D:collection/>
+             <caldav:calendar/>
+             <cs:shared/>
+            </D:resourcetype>
+           </D:prop>
+          </D:propstat>
+          <D:propstat>
+           <D:status>HTTP/1.1 404 Not Found</D:status>
+           <D:prop>
+            <D:getetag/>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/74pebmv433s9643c52m4534mjg%40group.calendar.google.com/events/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <D:displayname>Calendav Test 1640995200</D:displayname>
+            <cs:getctag>63777323936</cs:getctag>
+            <D:supported-report-set>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-multiget/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-query/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <D:sync-collection/>
+              </D:report>
+             </D:supported-report>
+            </D:supported-report-set>
+            <ical:calendar-color>#B3DC6CFF</ical:calendar-color>
+            <caldav:supported-calendar-component-set>
+             <caldav:comp name="VEVENT"/>
+            </caldav:supported-calendar-component-set>
+            <D:resourcetype>
+             <D:collection/>
+             <caldav:calendar/>
+             <cs:shared/>
+            </D:resourcetype>
+           </D:prop>
+          </D:propstat>
+          <D:propstat>
+           <D:status>HTTP/1.1 404 Not Found</D:status>
+           <D:prop>
+            <D:getetag/>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/qm0qve90nhpcgonlrtu7b939og%40group.calendar.google.com/events/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <D:displayname>CC Source</D:displayname>
+            <cs:getctag>63777220325</cs:getctag>
+            <D:supported-report-set>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-multiget/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-query/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <D:sync-collection/>
+              </D:report>
+             </D:supported-report>
+            </D:supported-report-set>
+            <ical:calendar-color>#C2C2C2FF</ical:calendar-color>
+            <caldav:supported-calendar-component-set>
+             <caldav:comp name="VEVENT"/>
+            </caldav:supported-calendar-component-set>
+            <D:resourcetype>
+             <D:collection/>
+             <caldav:calendar/>
+             <cs:shared/>
+            </D:resourcetype>
+           </D:prop>
+          </D:propstat>
+          <D:propstat>
+           <D:status>HTTP/1.1 404 Not Found</D:status>
+           <D:prop>
+            <D:getetag/>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/67ctsp7ftjjghlin24t27c4bu0%40group.calendar.google.com/events/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <D:displayname>Calendav Test 1641634872</D:displayname>
+            <cs:getctag>63777318077</cs:getctag>
+            <D:supported-report-set>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-multiget/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-query/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <D:sync-collection/>
+              </D:report>
+             </D:supported-report>
+            </D:supported-report-set>
+            <ical:calendar-color>#FF7537FF</ical:calendar-color>
+            <caldav:supported-calendar-component-set>
+             <caldav:comp name="VEVENT"/>
+            </caldav:supported-calendar-component-set>
+            <D:resourcetype>
+             <D:collection/>
+             <caldav:calendar/>
+             <cs:shared/>
+            </D:resourcetype>
+           </D:prop>
+          </D:propstat>
+          <D:propstat>
+           <D:status>HTTP/1.1 404 Not Found</D:status>
+           <D:prop>
+            <D:getetag/>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/c5i68sj5edpm4rrfdchm6rreehgm6t3j81jn4rrle0n7cbj3c5m6arj4c5p2sprfdtjmop9ecdnmq%40virtual/events/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <D:displayname>Contacts</D:displayname>
+            <cs:getctag>63777223295</cs:getctag>
+            <D:supported-report-set>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-multiget/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-query/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <D:sync-collection/>
+              </D:report>
+             </D:supported-report>
+            </D:supported-report-set>
+            <ical:calendar-color>#92E1C0FF</ical:calendar-color>
+            <caldav:supported-calendar-component-set>
+             <caldav:comp name="VEVENT"/>
+            </caldav:supported-calendar-component-set>
+            <D:resourcetype>
+             <D:collection/>
+             <caldav:calendar/>
+             <cs:shared/>
+            </D:resourcetype>
+           </D:prop>
+          </D:propstat>
+          <D:propstat>
+           <D:status>HTTP/1.1 404 Not Found</D:status>
+           <D:prop>
+            <D:getetag/>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/8n1mcbfo7q7gu31ckraf6a39r0%40group.calendar.google.com/events/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <D:displayname>CC Destination</D:displayname>
+            <cs:getctag>63777211585</cs:getctag>
+            <D:supported-report-set>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-multiget/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-query/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <D:sync-collection/>
+              </D:report>
+             </D:supported-report>
+            </D:supported-report-set>
+            <ical:calendar-color>#9FC6E7FF</ical:calendar-color>
+            <caldav:supported-calendar-component-set>
+             <caldav:comp name="VEVENT"/>
+            </caldav:supported-calendar-component-set>
+            <D:resourcetype>
+             <D:collection/>
+             <caldav:calendar/>
+             <cs:shared/>
+            </D:resourcetype>
+           </D:prop>
+          </D:propstat>
+          <D:propstat>
+           <D:status>HTTP/1.1 404 Not Found</D:status>
+           <D:prop>
+            <D:getetag/>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+         <D:response xmlns:carddav="urn:ietf:params:xml:ns:carddav" xmlns:cm="http://cal.me.com/_namespace/" xmlns:md="urn:mobileme:davservices">
+          <D:href>/caldav/v2/cln2sobledq74obcd5gms8r8dtm6ip31f506esjfelo2sthecdgmopbechgn4bj7dtnmer355phmur8%40virtual/events/</D:href>
+          <D:propstat>
+           <D:status>HTTP/1.1 200 OK</D:status>
+           <D:prop>
+            <D:displayname>Holidays in Australia</D:displayname>
+            <cs:getctag>63777223295</cs:getctag>
+            <D:supported-report-set>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-multiget/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <caldav:calendar-query/>
+              </D:report>
+             </D:supported-report>
+             <D:supported-report>
+              <D:report>
+               <D:sync-collection/>
+              </D:report>
+             </D:supported-report>
+            </D:supported-report-set>
+            <ical:calendar-color>#16A765FF</ical:calendar-color>
+            <caldav:supported-calendar-component-set>
+             <caldav:comp name="VEVENT"/>
+            </caldav:supported-calendar-component-set>
+            <D:resourcetype>
+             <D:collection/>
+             <caldav:calendar/>
+             <cs:shared/>
+            </D:resourcetype>
+           </D:prop>
+          </D:propstat>
+          <D:propstat>
+           <D:status>HTTP/1.1 404 Not Found</D:status>
+           <D:prop>
+            <D:getetag/>
+           </D:prop>
+          </D:propstat>
+         </D:response>
+        </D:multistatus>
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+- request:
+    method: delete
+    uri: https://www.googleapis.com/calendar/v3/calendars/74pebmv433s9643c52m4534mjg@group.calendar.google.com
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - unknown/0.0.0 google-api-ruby-client/0.4.1 Mac OS X/12.1 (gzip)
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip,deflate
+      Date:
+      - Sat, 01 Jan 2022 00:00:00 GMT
+      X-Goog-Api-Client:
+      - gl-ruby/3.0.3 gdcl/1.4.1
+      Authorization:
+      - Bearer ya29.a0ARrdaM-cry6cu5xjGeOoo3vXMSPahWQ-8gooRnavhr1G2xD1vTKN40Env9jy8MVNvRSKgQHyinYaHs6FRuewYe5PY3p08tTkCmaQQTrX5RN_i7emyFSnao2k04fEj0Zx8QEpk277PnRYQ_bFrC005YFvPd-TIas
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Date:
+      - Sat, 08 Jan 2022 11:19:00 GMT
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Content-Length:
+      - '0'
+      Pragma:
+      - no-cache
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Content-Type:
+      - text/html
+      Server:
+      - ESF
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Sat, 01 Jan 2022 00:00:00 GMT
+recorded_with: VCR 6.0.0

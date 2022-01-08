@@ -5,10 +5,6 @@ require "icalendar"
 require "securerandom"
 
 module EventHelpers
-  def event_identifier
-    "#{SecureRandom.uuid}.ics"
-  end
-
   def ical_event(summary, hour, minute)
     start = time_at(hour, minute)
 

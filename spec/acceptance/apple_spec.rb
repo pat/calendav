@@ -4,7 +4,7 @@ require "securerandom"
 
 require_relative "./shared"
 
-RSpec.describe "Apple" do
+RSpec.describe "Apple", :vcr do
   let(:provider) { :apple }
   let(:username) { ENV.fetch("APPLE_USERNAME") }
   let(:password) { ENV.fetch("APPLE_PASSWORD") }
@@ -27,9 +27,13 @@ RSpec.describe "Apple" do
 
   context "with a calendar" do
     let(:calendar_url) do
-      subject.calendars.create(SecureRandom.uuid, display_name: "Calendav Test")
+      subject.calendars.create(@name, display_name: "Calendav Test")
     end
     let(:calendar) { subject.calendars.find(calendar_url) }
+
+    before :each do |example|
+      @name = Digest::MD5.hexdigest(example.metadata[:full_description])
+    end
 
     after :each do
       subject.calendars.delete(calendar.url)

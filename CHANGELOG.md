@@ -1,6 +1,10 @@
 ## Unreleased
 
-...
+## 0.3.0 - 2022-03-14
+
+* Add location to event wrapper.
+* Allow setting timeouts for client calls.
+* Avoid external calls to calculate calendar URLs where possible.
 
 ## 0.2.0 - 2021-07-07
 

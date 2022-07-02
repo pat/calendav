@@ -50,11 +50,12 @@ RSpec.shared_examples "supporting event management" do
 
   it "can create, find, update and delete events" do
     # Create an event
-    event_url = subject.events.create(
+    event_result = subject.events.create(
       calendar.url, "calendav-event-1.ics", ical_event("Brunch", 10, 30)
     )
-    expect(event_url).to include(URI.decode_www_form_component(calendar.url))
-    event = subject.events.find(event_url)
+    expect(event_result.url)
+      .to include(URI.decode_www_form_component(calendar.url))
+    event = subject.events.find(event_result.url)
 
     # Search for the event
     events = subject.events.list(
@@ -63,10 +64,10 @@ RSpec.shared_examples "supporting event management" do
     expect(events.length).to eq(1)
     expect(events.first.summary).to eq("Brunch")
     expect(events.first.dtstart.to_time).to eq(time_at(10, 30))
-    expect(events.first.url).to eq_encoded_url(event_url)
+    expect(events.first.url).to eq_encoded_url(event_result.url)
 
     # Update the event
-    subject.events.update(event_url, update_summary(event, "Coffee"))
+    subject.events.update(event_result.url, update_summary(event, "Coffee"))
 
     # Search again
     events = subject.events.list(
@@ -75,10 +76,10 @@ RSpec.shared_examples "supporting event management" do
     expect(events.length).to eq(1)
     expect(events.first.summary).to eq("Coffee")
     expect(events.first.dtstart.to_time).to eq(time_at(10, 30))
-    expect(events.first.url).to eq_encoded_url(event_url)
+    expect(events.first.url).to eq_encoded_url(event_result.url)
 
     # Create another event
-    another_url = subject.events.create(
+    another_result = subject.events.create(
       calendar.url, "calendav-event-2.ics", ical_event("Brunch", 10, 30)
     )
 
@@ -87,23 +88,23 @@ RSpec.shared_examples "supporting event management" do
     expect(events.length).to eq(2)
 
     # Delete the events
-    expect(subject.events.delete(event_url)).to eq(true)
-    expect(subject.events.delete(another_url)).to eq(true)
+    expect(subject.events.delete(event_result.url)).to eq(true)
+    expect(subject.events.delete(another_result.url)).to eq(true)
   end
 
   it "respects etag conditions with updates" do
-    event_url = subject.events.create(
+    event_result = subject.events.create(
       calendar.url, "calendav-event.ics", ical_event("Brunch", 10, 30)
     )
-    event = subject.events.find(event_url)
+    event = subject.events.find(event_result.url)
 
     expect(
       subject.events.update(
-        event_url, update_summary(event, "Coffee"), etag: event.etag
+        event_result.url, update_summary(event, "Coffee"), etag: event.etag
       )
-    ).to eq(true)
+    ).not_to be_nil
 
-    expect(subject.events.find(event_url).summary).to eq("Coffee")
+    expect(subject.events.find(event_result.url).summary).to eq("Coffee")
 
     # Wait for server to catch up
     sleep 1
@@ -111,70 +112,72 @@ RSpec.shared_examples "supporting event management" do
     # Updating with the old etag should fail
     expect(
       subject.events.update(
-        event_url, update_summary(event, "Brunch"), etag: event.etag
+        event_result.url, update_summary(event, "Brunch"), etag: event.etag
       )
-    ).to eq(false)
+    ).to be_nil
 
-    expect(subject.events.find(event_url).summary).to eq("Coffee")
+    expect(subject.events.find(event_result.url).summary).to eq("Coffee")
 
-    expect(subject.events.delete(event_url)).to eq(true)
+    expect(subject.events.delete(event_result.url)).to eq(true)
   end
 
   it "handles synchronisation requests" do
-    first_url = subject.events.create(
+    first_result = subject.events.create(
       calendar.url, "calendav-event-1.ics", ical_event("Brunch", 10, 30)
     )
-    first = subject.events.find(first_url)
+    first = subject.events.find(first_result.url)
     token = subject.calendars.find(calendar.url, sync: true).sync_token
 
     events = subject.events.list(calendar.url)
     expect(events.length).to eq(1)
 
-    second_url = subject.events.create(
+    second_result = subject.events.create(
       calendar.url, "calendav-event-2.ics", ical_event("Brunch Again", 11, 30)
     )
 
-    subject.events.update(first_url, update_summary(first, "Coffee"))
-    first = subject.events.find(first_url)
+    subject.events.update(first_result.url, update_summary(first, "Coffee"))
+    first = subject.events.find(first_result.url)
 
     collection = subject.calendars.sync(calendar.url, token)
     expect(collection.changes.collect(&:url))
-      .to match_encoded_urls([first_url, second_url])
+      .to match_encoded_urls([first_result.url, second_result.url])
 
     expect(collection.deletions).to be_empty
     expect(collection.more?).to eq(false)
 
-    subject.events.update(first_url, update_summary(first, "Brunch"))
-    subject.events.delete(second_url)
+    subject.events.update(first_result.url, update_summary(first, "Brunch"))
+    subject.events.delete(second_result.url)
 
     collection = subject.calendars.sync(calendar.url, collection.sync_token)
     urls = collection.changes.collect(&:url)
     expect(urls.length).to eq(1)
-    expect(urls[0]).to eq_encoded_url(first_url)
+    expect(urls[0]).to eq_encoded_url(first_result.url)
 
     expect(collection.deletions.length).to eq(1)
-    expect(collection.deletions.first).to eq_encoded_url(second_url)
+    expect(collection.deletions.first).to eq_encoded_url(second_result.url)
     expect(collection.more?).to eq(false)
 
-    subject.events.delete(first_url)
+    subject.events.delete(first_result.url)
   end
 end
 
 RSpec.shared_examples "supporting event deletion with etags" do
   it "respects etag conditions with deletions" do
-    event_url = subject.events.create(
+    event_result = subject.events.create(
       calendar.url, "calendav-event.ics", ical_event("Brunch", 10, 30)
     )
-    event = subject.events.find(event_url)
+    event = subject.events.find(event_result.url)
 
     expect(
       subject.events.update(
-        event_url, update_summary(event, "Coffee"), etag: event.etag
+        event_result.url, update_summary(event, "Coffee"), etag: event.etag
       )
-    ).to eq(true)
-    expect(subject.events.find(event_url).summary).to eq("Coffee")
+    ).not_to be_nil
+    expect(subject.events.find(event_result.url).summary).to eq("Coffee")
 
-    expect(subject.events.delete(event_url, etag: event.etag)).to eq(false)
-    expect(subject.events.delete(event_url)).to eq(true)
+    expect(
+      subject.events.delete(event_result.url, etag: event.etag)
+    ).to eq(false)
+    expect(subject.events.delete(event_result.url)).to eq(true)
   end
 end

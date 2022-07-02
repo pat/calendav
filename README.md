@@ -121,7 +121,8 @@ end
 ics.publish
 
 identifier = "#{SecureRandom.uuid}.ics"
-event_url = client.events.create(calendar.url, identifier, ics.to_ical)
+# The returned event has just the URL and the etag, no calendar data:
+event_scaffold = client.events.create(calendar.url, identifier, ics.to_ical)
 ```
 
 *Please note*: some providers (definitely Google, possibly others) will not keep your supplied event identifier, but generate a new one. So, if you need an ongoing reference to the event, save the returned URL (rather than combining the calendar URL and your identifier).
@@ -129,17 +130,17 @@ event_url = client.events.create(calendar.url, identifier, ics.to_ical)
 Updating events is done in a similar manner - with the event's URL and the updated iCalendar content:
 
 ```ruby
-client.events.update(event_url, ics.to_ical)
+event_scaffold = client.events.update(event_url, ics.to_ical)
 ```
 
-To ensure you're only changing a known version of an event, it's recommended you use that version's etag as a precondition check (the update call will return false if the event on the server has a different etag value):
+To ensure you're only changing a known version of an event, it's recommended you use that version's etag as a precondition check (the update call will return nil if the event on the server has a different etag value):
 
 ```ruby
-event = client.events.find(event_url)
+event = client.events.find(event_scaffold.url)
 
 # figure out the changes you want to make, generate the new ical data, and then:
 
-client.events.update(event_url, modified_ical, etag: event.etag)
+client.events.update(event_scaffold.url, modified_ical, etag: event.etag)
 ```
 
 Deletion of events is done via the event's URL as well - some providers (including Apple) support the etag precondition check for this, but others (including Google) do not. In the latter situation, the deletion will happen regardless of the server event's etag value.

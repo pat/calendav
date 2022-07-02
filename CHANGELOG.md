@@ -1,5 +1,7 @@
 ## Unreleased
 
+* **Breaking**: calls to create/update events return event objects that only have a URL and etag populated (so: no calendar data), or nil if the request failed due to an etag precondition. This is instead of returning true on success or false on failure.
+
 ## 0.3.0 - 2022-03-14
 
 * Add location to event wrapper.

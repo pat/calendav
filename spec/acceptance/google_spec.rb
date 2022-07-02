@@ -83,19 +83,21 @@ RSpec.describe "Google", :vcr do
     it_behaves_like "supporting event management"
 
     it "does not respect etag conditions for deletions" do
-      event_url = subject.events.create(
+      event_result = subject.events.create(
         calendar.url, "calendav-event.ics", ical_event("Brunch", 10, 30)
       )
-      event = subject.events.find(event_url)
+      event = subject.events.find(event_result.url)
 
       expect(
         subject.events.update(
-          event_url, update_summary(event, "Coffee"), etag: event.etag
+          event_result.url, update_summary(event, "Coffee"), etag: event.etag
         )
-      ).to eq(true)
+      ).not_to be_nil
 
       # Google doesn't care about the If-Match header on DELETE requests :(
-      expect(subject.events.delete(event_url, etag: event.etag)).to eq(true)
+      expect(
+        subject.events.delete(event_result.url, etag: event.etag)
+      ).to eq(true)
     end
   end
 end

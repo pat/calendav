@@ -17,7 +17,10 @@ module Calendav
         event_url = merged_url(calendar_url, event_identifier)
         result = endpoint.put(ics, url: event_url, content_type: :ics)
 
-        result.headers["Location"] || event_url
+        Event.new(
+          url: result.headers["Location"] || event_url,
+          etag: result.headers["ETag"]
+        )
       end
 
       def delete(event_url, etag: nil)
@@ -46,13 +49,16 @@ module Calendav
       end
 
       def update(event_url, ics, etag: nil)
-        endpoint.put(
+        result = endpoint.put(
           ics, url: event_url, content_type: :ics, etag: etag
         )
 
-        true
+        Event.new(
+          url: event_url,
+          etag: result.headers["ETag"]
+        )
       rescue PreconditionError
-        false
+        nil
       end
 
       private

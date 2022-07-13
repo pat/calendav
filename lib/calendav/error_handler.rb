@@ -14,7 +14,7 @@ module Calendav
 
     def call
       raise PreconditionError, response if status.code == 412
-      raise RedirectError, headers["Location"] if status.redirect?
+      raise RedirectError, response if status.redirect?
 
       raise RequestError, response
     end

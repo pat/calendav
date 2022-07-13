@@ -24,6 +24,11 @@ module Calendav
     end
   end
 
+  class RedirectError < RequestError
+    def location
+      response.headers["Location"]
+    end
+  end
+
   PreconditionError = Class.new(RequestError)
-  RedirectError = Class.new(RequestError)
 end

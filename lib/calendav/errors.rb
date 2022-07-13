@@ -25,4 +25,5 @@ module Calendav
   end
 
   PreconditionError = Class.new(RequestError)
+  RedirectError = Class.new(RequestError)
 end

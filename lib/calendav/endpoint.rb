@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "./contextual_url"
-require_relative "./errors"
+require_relative "./error_handler"
 require_relative "./parsers/response_xml"
 
 module Calendav
@@ -109,11 +109,7 @@ module Calendav
         verb, ContextualURL.call(credentials.host, url), body: body
       )
 
-      return response if response.status.success?
-
-      raise PreconditionError, response if response.status.code == 412
-
-      raise RequestError, response
+      response.status.success? ? response : ErrorHandler.call(response)
     end
 
     def parse(response)

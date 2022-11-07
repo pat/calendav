@@ -7,8 +7,8 @@ require_relative "../namespaces"
 module Calendav
   module Requests
     class ListEvents
-      def self.call(...)
-        new(...).call
+      def self.call(from:, to:)
+        new(from: from, to: to).call
       end
 
       def initialize(from:, to:)

@@ -22,8 +22,8 @@ module Calendav
         }
       ].freeze
 
-      def self.call(...)
-        new(...).call
+      def self.call(attributes)
+        new(attributes).call
       end
 
       def initialize(attributes)

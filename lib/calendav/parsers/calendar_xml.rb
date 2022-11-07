@@ -13,8 +13,8 @@ module Calendav
         sync_token: ".//dav:sync-token"
       }.freeze
 
-      def self.call(...)
-        new(...).call
+      def self.call(element)
+        new(element).call
       end
 
       def initialize(element)

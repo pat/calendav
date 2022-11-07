@@ -7,8 +7,8 @@ require_relative "../namespaces"
 module Calendav
   module Parsers
     class ResponseXML
-      def self.call(...)
-        new(...).call
+      def self.call(raw, namespaces = NAMESPACES)
+        new(raw, namespaces = NAMESPACES).call
       end
 
       def initialize(raw, namespaces = NAMESPACES)

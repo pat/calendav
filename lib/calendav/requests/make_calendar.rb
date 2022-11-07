@@ -7,8 +7,8 @@ require_relative "../namespaces"
 module Calendav
   module Requests
     class MakeCalendar
-      def self.call(...)
-        new(...).call
+      def self.call(attributes)
+        new(attributes).call
       end
 
       def initialize(attributes)

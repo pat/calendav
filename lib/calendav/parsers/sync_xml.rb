@@ -7,8 +7,8 @@ require_relative "../sync_collection"
 module Calendav
   module Parsers
     class SyncXML
-      def self.call(...)
-        new(...).call
+      def self.call(calendar_url, multi_response)
+        new(calendar_url, multi_response).call
       end
 
       def initialize(calendar_url, multi_response)

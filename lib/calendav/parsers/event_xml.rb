@@ -3,8 +3,8 @@
 module Calendav
   module Parsers
     class EventXML
-      def self.call(...)
-        new(...).call
+      def self.call(element)
+        new(element).call
       end
 
       def initialize(element)

@@ -1,3 +1,23 @@
+# in this FORK
+3 dots as a method argument is not supported by ruby 2.6.6
+1- all occurrences are replaced with proper arguments.
+2- required ruby version is changed to >= 2.6.6
+
+**To Test** 
+add `gem 'calendav', git: 'https://github.com/petalmd/calendav', require: false` to gemfile
+ensure you run ruby 2.6.6
+open a ruby console and `require 'calendav'`. it should not raise any error
+you may also want to test it by connecting to Caldav Server (if you have one running in ur machine)
+
+````
+
+credentials = Calendav::Credentials::Standard.new(host: " http://localhost:8080/remote.php/dav",username: username, password: password, authentication: :basic_auth)
+
+client =  Calendav.client(credentials)
+calendras = client.calendars.list
+events = client.events.list(calendars.first.url)
+````
+
 # Calendav
 
 A library for interacting with CalDAV servers via Ruby.

@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["pat@freelancing-gods.com"]
 
   spec.summary       = "CalDAV client"
-  spec.homepage      = "https://github.com/pat/calendav"
+  spec.homepage      = "https://github.com/petalmd/calendav"
   spec.license       = "Hippocratic-2.1"
 
   spec.required_ruby_version = Gem::Requirement.new(">= 2.6.6")

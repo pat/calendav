@@ -4,6 +4,7 @@ require_relative "contextual_url"
 require_relative "endpoint"
 require_relative "clients/calendars_client"
 require_relative "clients/events_client"
+require_relative "clients/todos_client"
 require_relative "requests/current_user_principal"
 
 module Calendav
@@ -19,6 +20,10 @@ module Calendav
 
     def events
       @events = Clients::EventsClient.new(self, endpoint, credentials)
+    end
+
+    def todos
+      @todos = Clients::TodosClient.new(self, endpoint, credentials)
     end
 
     def principal_url

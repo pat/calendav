@@ -7,6 +7,7 @@ Dotenv.load
 
 require_relative "support/encoded_matchers"
 require_relative "support/event_helpers"
+require_relative "support/todo_helpers"
 require_relative "support/vcr"
 
 RSpec.configure do |config|

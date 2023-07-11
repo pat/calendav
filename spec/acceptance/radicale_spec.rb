@@ -2,7 +2,7 @@
 
 require "securerandom"
 
-require_relative "./shared"
+require_relative "shared"
 
 RSpec.describe "Radicale" do
   let(:provider) { :radicale }

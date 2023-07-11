@@ -2,7 +2,7 @@
 
 require "securerandom"
 
-require_relative "./shared"
+require_relative "shared"
 
 RSpec.describe "Apple", :vcr do
   let(:provider) { :apple }

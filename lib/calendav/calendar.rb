@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "./contextual_url"
-require_relative "./parsers/calendar_xml"
+require_relative "contextual_url"
+require_relative "parsers/calendar_xml"
 
 module Calendav
   class Calendar

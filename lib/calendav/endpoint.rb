@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "./contextual_url"
-require_relative "./error_handler"
-require_relative "./parsers/response_xml"
+require_relative "contextual_url"
+require_relative "error_handler"
+require_relative "parsers/response_xml"
 
 module Calendav
   class Endpoint

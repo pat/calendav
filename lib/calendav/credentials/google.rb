@@ -3,7 +3,7 @@
 require "http"
 require "uri"
 
-require_relative "./standard"
+require_relative "standard"
 
 module Calendav
   module Credentials

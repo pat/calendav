@@ -6,7 +6,7 @@ require "icalendar"
 require "securerandom"
 require "uri"
 
-require_relative "./shared"
+require_relative "shared"
 
 RSpec.describe "Google", :vcr do
   let(:provider) { :google }

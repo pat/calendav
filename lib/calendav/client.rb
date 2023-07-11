@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "./contextual_url"
-require_relative "./endpoint"
-require_relative "./clients/calendars_client"
-require_relative "./clients/events_client"
-require_relative "./requests/current_user_principal"
+require_relative "contextual_url"
+require_relative "endpoint"
+require_relative "clients/calendars_client"
+require_relative "clients/events_client"
+require_relative "requests/current_user_principal"
 
 module Calendav
   class Client

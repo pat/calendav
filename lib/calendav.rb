@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "./calendav/credentials/apple"
-require_relative "./calendav/credentials/fastmail"
-require_relative "./calendav/credentials/google"
-require_relative "./calendav/client"
+require_relative "calendav/credentials/apple"
+require_relative "calendav/credentials/fastmail"
+require_relative "calendav/credentials/google"
+require_relative "calendav/client"
 
 module Calendav
   PROVIDERS = {

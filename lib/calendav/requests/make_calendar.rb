@@ -38,6 +38,7 @@ module Calendav
                   :"supported-calendar-component-set"
                 ) do
                   xml["caldav"].comp name: "VEVENT"
+                  xml["caldav"].comp name: "VTODO"
                 end
               end
             end

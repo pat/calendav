@@ -181,3 +181,116 @@ RSpec.shared_examples "supporting event deletion with etags" do
     expect(subject.events.delete(event_result.url)).to eq(true)
   end
 end
+
+RSpec.shared_examples "supporting todo management" do
+  it "supports events" do
+    expect(calendar.components).to include("VTODO")
+  end
+
+  it "can create, find, update and delete todos" do
+    # Create an event
+    todo_result = subject.todos.create(
+      calendar.url, "calendav-todo-1.ics", ical_todo("Todo 1")
+    )
+    expect(todo_result.url)
+      .to include(URI.decode_www_form_component(calendar.url))
+    todo = subject.todos.find(todo_result.url)
+
+    # Search for the todo
+    todos = subject.todos.list(calendar.url)
+    expect(todos.length).to eq(1)
+    expect(todos.first.summary).to eq("Todo 1")
+    expect(todos.first.url).to eq_encoded_url(todo_result.url)
+
+    # Update the event
+    subject.events.update(todo_result.url,
+                          update_todo_summary(todo, "Todo 2"))
+
+    # Search again
+    todos = subject.todos.list(calendar.url)
+    expect(todos.length).to eq(1)
+    expect(todos.first.summary).to eq("Todo 2")
+    expect(todos.first.url).to eq_encoded_url(todo_result.url)
+
+    # Create another event
+    another_result = subject.todos.create(
+      calendar.url, "calendav-todo-2.ics", ical_todo("Todo 3")
+    )
+
+    # Search for all events
+    todos = subject.todos.list(calendar.url)
+    expect(todos.length).to eq(2)
+
+    # Delete the events
+    expect(subject.todos.delete(todo_result.url)).to eq(true)
+    expect(subject.todos.delete(another_result.url)).to eq(true)
+  end
+
+  it "respects etag conditions with updates" do
+    todo_result = subject.todos.create(
+      calendar.url, "calendav-todo.ics", ical_todo("Todo 1")
+    )
+    todo = subject.todos.find(todo_result.url)
+
+    expect(
+      subject.todos.update(
+        todo_result.url, update_todo_summary(todo, "Todo 2"), etag: todo.etag
+      )
+    ).not_to be_nil
+
+    expect(subject.todos.find(todo_result.url).summary).to eq("Todo 2")
+
+    # Wait for server to catch up
+    sleep 1
+
+    # Updating with the old etag should fail
+    expect(
+      subject.todos.update(
+        todo_result.url, update_todo_summary(todo, "Todo 1"), etag: todo.etag
+      )
+    ).to be_nil
+
+    expect(subject.todos.find(todo_result.url).summary).to eq("Todo 2")
+
+    expect(subject.todos.delete(todo_result.url)).to eq(true)
+  end
+
+  it "handles synchronisation requests" do
+    first_result = subject.todos.create(
+      calendar.url, "calendav-todo-1.ics", ical_todo("Todo 1")
+    )
+    first = subject.todos.find(first_result.url)
+    token = subject.calendars.find(calendar.url, sync: true).sync_token
+
+    todos = subject.todos.list(calendar.url)
+    expect(todos.length).to eq(1)
+
+    second_result = subject.todos.create(
+      calendar.url, "calendav-event-2.ics", ical_todo("Todo 2")
+    )
+
+    subject.todos.update(first_result.url, update_todo_summary(first, "Todo 3"))
+    first = subject.todos.find(first_result.url)
+
+    collection = subject.calendars.sync(calendar.url, token)
+    expect(collection.changes.collect(&:url))
+      .to match_encoded_urls([first_result.url, second_result.url])
+
+    expect(collection.deletions).to be_empty
+    expect(collection.more?).to eq(false)
+
+    subject.todos.update(first_result.url, update_todo_summary(first, "Todo 1"))
+    subject.todos.delete(second_result.url)
+
+    collection = subject.calendars.sync(calendar.url, collection.sync_token)
+    urls = collection.changes.collect(&:url)
+    expect(urls.length).to eq(1)
+    expect(urls[0]).to eq_encoded_url(first_result.url)
+
+    expect(collection.deletions.length).to eq(1)
+    expect(collection.deletions.first).to eq_encoded_url(second_result.url)
+    expect(collection.more?).to eq(false)
+
+    subject.todos.delete(first_result.url)
+  end
+end

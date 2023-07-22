@@ -44,5 +44,6 @@ RSpec.describe "Radicale" do
 
     it_behaves_like "supporting event management"
     it_behaves_like "supporting event deletion with etags"
+    it_behaves_like "supporting todo management"
   end
 end

@@ -232,11 +232,21 @@ The work done in previous Ruby CalDAV clients [RubyCaldav](https://github.com/di
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies and configure the required credentials. This will copy the `.env.example` file to a `.env` file. Make sure to configure the `.env` file with your own Apple and Google credentials.
+
+You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 ## Tests
 
-The test suite currently only runs against Google and Apple accounts I've created especially for this purpose - and the credentials are not public. I realise this makes contributions more difficult, and I'm open to finding better ways to handle this. I did look into running a CalDAV server within the test suite, but couldn't find anything small and easy enough for that purpose. But also: testing against common CalDAV servers does help to ensure this gem is truly useful (and has knowledge of their idiosyncrasies).
+The test suite depends on a locally running instance of a CalDAV server to work properly. We prefer [Radicale](https://radicale.org/v3.html) for this. You can run it locally with Docker and the provided configuration in `spec/data/radicale` with the following command:
+
+    docker run -v $PWD/spec/data/radicale:/var/radicale \
+               --name radicale \
+               --publish 8000:8000 \
+               --detach \
+               xlrl/radicale
+
+With the CalDAV server running, you can now run `rake spec` to run the tests.
 
 ## Contributing
 

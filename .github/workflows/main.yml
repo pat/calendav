@@ -35,7 +35,7 @@ jobs:
         APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
         GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
         GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-        GOOGLE_USERNAME: ${{ secrets.GOOGLE_USERNAME }}
+        GOOGLE_USERNAME: calendavtest@gmail.com
         GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
         RADICALE_USERNAME: test
         RADICALE_PASSWORD: test

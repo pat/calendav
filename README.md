@@ -151,6 +151,55 @@ client.events.delete(event_url)
 client.events.delete(event_url, etag: event.etag)
 ```
 
+### Todos
+
+You can also use a calendar's URL to retrieve its todos.
+
+```ruby
+todos = client.todos.list(calendar_url)
+todos.each do |todo|
+  puts todo.url
+  puts todo.summary
+  puts todo.status
+  puts todo.due
+end
+```
+
+Just like events, returned todos have a unique URL, an `etag` (which changes when the todo changes), and `calendar_data`. The todo objects returned currently parse the summary, status, and due date out of the calendar data.
+
+If you have a todo's URL, you can fetch the details of just that todo directly:
+
+```ruby
+todo = client.todos.find(todo_url)
+```
+
+Creating todos, just like creating events, requires a unique identifier. You will also need to generate the iCalendar data - again, the [icalendar](https://github.com/icalendar/icalendar) gem is very helpful for this.
+
+```ruby
+require "securerandom"
+require "icalendar"
+
+ics = Icalendar::Calendar.new
+ics.todo do |todo|
+# ...
+end
+ics.publish
+
+identifier = "#{SecureRandom.uuid}.ics"
+# The returned todo has just the URL and the etag, no calendar data:
+todo_scaffold = client.todos.create(calendar.url, identifier, ics.to_ical)
+```
+
+Updating and deleting todos is similar to updating events:
+
+```ruby
+# Update the todo
+client.todos.update(todo_url, ics.to_ical)
+
+# Delete the todo
+client.todos.delete(todo_url)
+```
+
 ### Synchronising
 
 If you are maintaining your own copy/history of events from a CalDAV server, then it's highly recommended you take advantage of the WebDAV-Sync protocol (should the calendar provider support it). Using Calendav, the suggested approach is:
@@ -198,7 +247,7 @@ While a lot of the core CalDAV functionality is covered and this gem is useful a
 * Further iCalendar parsing for Event objects.
 * Automated tests against FastMail and possibly other providers (Apple and Google are already covered).
 * Locking/unlocking of events as per the WebCAL RFC.
-* Support for VTODO, VJOURNAL, VFREEBUSY and any other components beyond VEVENT.
+* Support for VJOURNAL, VFREEBUSY and any other components beyond VEVENT.
 
 ## Installation
 

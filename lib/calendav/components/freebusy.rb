@@ -40,18 +40,20 @@ module Calendav
         }
       end
 
-      private
+      class << self
+        private
 
-      def attributes_from_ical_freebusy(ical_freebusy)
-        {
-          dtend: ical_freebusy.dtend,
-          dtstamp: ical_freebusy.dtstamp,
-          dtstart: ical_freebusy.dtstart,
-          freebusy: ical_freebusy.freebusy,
-          ical_name: ical_freebusy.ical_name,
-          name: ical_freebusy.name,
-          uid: ical_freebusy.uid
-        }
+        def attributes_from_ical_freebusy(ical_freebusy)
+          {
+            dtend: ical_freebusy.dtend,
+            dtstamp: ical_freebusy.dtstamp,
+            dtstart: ical_freebusy.dtstart,
+            freebusy: ical_freebusy.freebusy,
+            ical_name: ical_freebusy.ical_name,
+            name: ical_freebusy.name,
+            uid: ical_freebusy.uid
+          }
+        end
       end
     end
   end

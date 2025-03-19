@@ -24,10 +24,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "http"
-  spec.add_runtime_dependency "icalendar"
-  spec.add_runtime_dependency "nokogiri"
+  spec.add_dependency "http"
+  spec.add_dependency "icalendar"
+  spec.add_dependency "nokogiri"
 
+  spec.add_development_dependency "debug"
   spec.add_development_dependency "dotenv"
   spec.add_development_dependency "google-api-client"
   spec.add_development_dependency "googleauth"

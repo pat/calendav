@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 require "securerandom"
+require "icalendar"
 
 require_relative "../calendar"
+require_relative "../components/freebusy"
 require_relative "../parsers/sync_xml"
 require_relative "../requests/calendar_home_set"
 require_relative "../requests/list_calendars"
 require_relative "../requests/make_calendar"
 require_relative "../requests/sync_collection"
 require_relative "../requests/update_calendar"
+require_relative "../requests/free_busy_query"
 
 module Calendav
   module Clients
@@ -59,7 +62,8 @@ module Calendav
 
       def list(url = home_url, depth: 1, attributes: DEFAULT_ATTRIBUTES)
         request = Requests::ListCalendars.call(attributes)
-        calendar_xpath = ".//dav:resourcetype/caldav:calendar"
+        calendar_xpath =
+          "//d:response[d:propstat/d:prop/cal:supported-calendar-component-set]"
 
         endpoint
           .propfind(request.to_xml, url: url, depth: depth)
@@ -89,6 +93,12 @@ module Calendav
           .first
           .xpath(".//dav:status")
           .text["200 OK"] == "200 OK"
+      end
+
+      def freebusy(url, from:, to:)
+        request = Requests::FreeBusyQuery.call(from: from, to: to)
+        response = endpoint.report(request.to_xml, url: url, depth: 1)
+        Components::Freebusy.from_http_response(response)
       end
 
       private

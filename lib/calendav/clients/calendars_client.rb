@@ -62,7 +62,8 @@ module Calendav
 
       def list(url = home_url, depth: 1, attributes: DEFAULT_ATTRIBUTES)
         request = Requests::ListCalendars.call(attributes)
-        calendar_xpath = ".//dav:resourcetype/caldav:calendar"
+        calendar_xpath =
+          "//d:response[d:propstat/d:prop/cal:supported-calendar-component-set]"
 
         endpoint
           .propfind(request.to_xml, url: url, depth: depth)

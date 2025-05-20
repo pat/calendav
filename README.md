@@ -100,12 +100,12 @@ end
 
 The returned events have a unique URL (just like calendars), an `etag` (which changes when the event changes), and `calendar_data`, which is stored in the [iCalendar](https://datatracker.ietf.org/doc/html/rfc5545) format. The event objects returned currently parse the summary out of the calendar data, but nothing else - further attributes may be made visible, but for full control it's recommended you use the [icalendar](https://github.com/icalendar/icalendar) gem.
 
-To get recurring events, you can use the optional `expand_recurrent_events` argument.
+To get recurring events, you can use the optional `expand_recurring_events` argument.
 
 ```ruby
 events = client.events.list(
   calendar_url, from: Time.new(2021, 1, 1), to: Time.new(2022, 1, 1),
-  expand_recurrent_events: true
+  expand_recurring_events: true
 )
 ```
 The recurrent events will be present in the `calendar_data`.

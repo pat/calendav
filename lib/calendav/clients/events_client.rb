@@ -39,8 +39,8 @@ module Calendav
         )
       end
 
-      def list(calendar_url, from: nil, to: nil)
-        request = Requests::ListEvents.call(from: from, to: to)
+      def list(calendar_url, from: nil, to: nil, expand_recurrent_events: false)
+        request = Requests::ListEvents.call(from: from, to: to, expand_recurrent_events: expand_recurrent_events)
 
         endpoint
           .report(request.to_xml, url: calendar_url, depth: 1)

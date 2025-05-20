@@ -11,9 +11,10 @@ module Calendav
         new(...).call
       end
 
-      def initialize(from:, to:)
+      def initialize(from:, to:, expand_recurrences:)
         @from = from
         @to = to
+        @expand_recurrences = expand_recurrences
       end
 
       def call
@@ -21,7 +22,13 @@ module Calendav
           xml["caldav"].public_send("calendar-query", NAMESPACES) do
             xml["dav"].prop do
               xml["dav"].getetag
-              xml["caldav"].public_send(:"calendar-data")
+              if @expand_recurrences && range?
+                xml["caldav"].public_send(:"calendar-data") do
+                  xml["caldav"].public_send(:"expand", start: from, end: to)
+                end
+              else
+                xml["caldav"].public_send(:"calendar-data")
+              end
             end
             xml["caldav"].filter do
               xml["caldav"].public_send(:"comp-filter", name: "VCALENDAR") do

@@ -23,7 +23,7 @@ credentials = Calendav::Credentials::Standard.new(
   host: "https://www.example.com/caldav",
   username: "example",
   password: "secret",
-  authentication: :basic_auth # or :bearer_token
+  authentication: :basic_auth # :bearer_token and :oauth also supported
 )
 ```
 

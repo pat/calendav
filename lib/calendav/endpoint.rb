@@ -85,6 +85,8 @@ module Calendav
         HTTP.basic_auth(user: credentials.username, pass: credentials.password)
       when :bearer_token
         HTTP.auth("Bearer #{credentials.password}")
+      when :oauth
+        HTTP.auth("OAuth #{credentials.password}")
       else
         raise "Unexpected authentication approach: " \
               "#{credentials.authentication}"

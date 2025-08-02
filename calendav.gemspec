@@ -24,19 +24,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "http"
-  spec.add_runtime_dependency "icalendar"
-  spec.add_runtime_dependency "nokogiri"
-
-  spec.add_development_dependency "dotenv"
-  spec.add_development_dependency "google-api-client"
-  spec.add_development_dependency "googleauth"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
-  spec.add_development_dependency "rubocop"
-  spec.add_development_dependency "timecop"
-  spec.add_development_dependency "tzinfo"
-  spec.add_development_dependency "vcr"
-  spec.add_development_dependency "vcr_assistant"
-  spec.add_development_dependency "webmock"
+  spec.add_dependency "http"
+  spec.add_dependency "icalendar"
+  spec.add_dependency "nokogiri"
 end

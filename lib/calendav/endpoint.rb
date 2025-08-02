@@ -79,7 +79,7 @@ module Calendav
 
     attr_reader :credentials, :timeout
 
-    def authenticated
+    def authenticated # rubocop:disable Metrics/MethodLength
       case credentials.authentication
       when :basic_auth
         HTTP.basic_auth(user: credentials.username, pass: credentials.password)

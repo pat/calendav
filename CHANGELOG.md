@@ -1,5 +1,13 @@
 ## Unreleased
 
+## 0.5.0 - 2025-08-02
+
+* Support for todos (Josh Huckabee #8, #9)
+* Improved documentation for development/testing environments (Josh Huckabee #7)
+* Support for expanded recurring events (Sayooj Surendran #12)
+* Support for OAuth authentication header (Ilya Nikitenkov #13)
+* Updated tested Ruby versions to 3.1-3.4 (2.7 and 3.0 are no longer officially supported).
+
 ## 0.4.0 - 2023-02-27
 
 * **Breaking**: calls to create/update events return event objects that only have a URL and etag populated (so: no calendar data), or nil if the request failed due to an etag precondition. This is instead of returning true on success or false on failure.

@@ -16,7 +16,7 @@ module Calendav
       @timeout = timeout
     end
 
-    def delete(url:, etag: nil)
+    def delete(url:, etag: nil) # rubocop:disable Naming/PredicateMethod
       request(:delete, url: url, http: with_headers(etag: etag))
         .status
         .success?

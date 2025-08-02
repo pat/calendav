@@ -82,7 +82,7 @@ module Calendav
         )
       end
 
-      def update(url, attributes)
+      def update(url, attributes) # rubocop:disable Naming/PredicateMethod
         request = Requests::UpdateCalendar.call(attributes)
         endpoint
           .proppatch(request.to_xml, url: url)

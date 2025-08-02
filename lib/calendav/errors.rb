@@ -7,7 +7,7 @@ module Calendav
     attr_reader :xml, :original
 
     def initialize(xml, original)
-      super original.message
+      super(original.message)
 
       @xml = xml
       @original = original
@@ -18,7 +18,7 @@ module Calendav
     attr_reader :response
 
     def initialize(response)
-      super response.status.to_s
+      super(response.status.to_s)
 
       @response = response
     end

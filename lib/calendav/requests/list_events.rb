@@ -22,9 +22,9 @@ module Calendav
           xml["caldav"].public_send("calendar-query", NAMESPACES) do
             xml["dav"].prop do
               xml["dav"].getetag
-              if @expand_recurring_events && range?
+              if expand_recurring_events? && range?
                 xml["caldav"].public_send(:"calendar-data") do
-                  xml["caldav"].public_send(:"expand", start: from, end: to)
+                  xml["caldav"].expand(start: from, end: to)
                 end
               else
                 xml["caldav"].public_send(:"calendar-data")
@@ -46,6 +46,10 @@ module Calendav
       end
 
       private
+
+      def expand_recurring_events?
+        @expand_recurring_events
+      end
 
       def from
         return nil if @from.nil?

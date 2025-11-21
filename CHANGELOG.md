@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 0.5.1 - 2025-11-21
+
+* Expose transp attribute on events (Antoine Girard #14)
+
 ## 0.5.0 - 2025-08-02
 
 * Support for todos (Josh Huckabee #8, #9)

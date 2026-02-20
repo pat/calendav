@@ -7,7 +7,7 @@ module Calendav
   class Calendar
     ATTRIBUTES = %i[
       url display_name description ctag etag time_zone color components reports
-      sync_token
+      sync_token current_user_privilege_set
     ].freeze
 
     def self.from_xml(host, node)

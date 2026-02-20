@@ -24,7 +24,11 @@ module Calendav
       def call
         XPATHS
           .transform_values { |xpath| value(xpath) }
-          .merge(components: components, reports: reports)
+          .merge(
+            components: components,
+            reports: reports,
+            current_user_privilege_set: privileges
+          )
       end
 
       private
@@ -40,6 +44,12 @@ module Calendav
       def reports
         element.xpath(
           ".//dav:supported-report-set/dav:supported-report/dav:report/*"
+        ).collect(&:name)
+      end
+
+      def privileges
+        element.xpath(
+          ".//dav:current-user-privilege-set/dav:privilege/*"
         ).collect(&:name)
       end
 

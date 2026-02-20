@@ -15,6 +15,7 @@ module Calendav
     class CalendarsClient
       DEFAULT_ATTRIBUTES = %i[
         display_name resource_type etag ctag color components reports
+        current_user_privilege_set
       ].freeze
 
       def initialize(client, endpoint, credentials)

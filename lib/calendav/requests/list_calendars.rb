@@ -19,6 +19,11 @@ module Calendav
           key: :components,
           namespace: "caldav",
           name: "supported-calendar-component-set"
+        },
+        {
+          key: :current_user_privilege_set,
+          namespace: "dav",
+          name: "current-user-privilege-set"
         }
       ].freeze
 

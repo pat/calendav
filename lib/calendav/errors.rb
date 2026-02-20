@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Calendav
-  Error = Class.new(StandardError)
+  class Error < StandardError; end
 
   class ParsingXMLError < Error
     attr_reader :xml, :original
@@ -30,5 +30,5 @@ module Calendav
     end
   end
 
-  PreconditionError = Class.new(RequestError)
+  class PreconditionError < RequestError; end
 end

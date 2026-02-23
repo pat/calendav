@@ -10,6 +10,25 @@ RSpec.shared_examples "supporting calendar management" do
     expect(subject.calendars.create?).to eq(true)
   end
 
+  it "includes privilege information" do
+    url = subject.calendars.create(
+      "calendav-privileges",
+      display_name: "Calendav Privileges"
+    )
+
+    calendars = subject.calendars.list
+    calendar = calendars.find do |cal|
+      cal.display_name == "Calendav Privileges"
+    end
+
+    expect(calendar.current_user_privilege_set)
+      .to be_an(Array)
+    expect(calendar.current_user_privilege_set)
+      .to include("read")
+
+    subject.calendars.delete(url)
+  end
+
   it "can create, find, update and delete calendars" do
     identifier = "calendav-test"
     time_zone = TZInfo::Timezone.get "UTC"

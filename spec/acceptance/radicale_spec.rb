@@ -42,11 +42,6 @@ RSpec.describe "Radicale" do
       subject.calendars.delete(calendar.url)
     end
 
-    it "includes privilege information" do
-      expect(calendar.current_user_privilege_set).to be_an(Array)
-      expect(calendar.current_user_privilege_set).to include("read")
-    end
-
     it_behaves_like "supporting event management"
     it_behaves_like "supporting event deletion with etags"
     it_behaves_like "supporting todo management"

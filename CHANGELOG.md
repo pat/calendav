@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 0.6.0 - 2026-04-12
+
+* Add `current-user-privilege-set` support (Antoine Girard #15)
+
 ## 0.5.1 - 2025-11-21
 
 * Expose transp attribute on events (Antoine Girard #14)

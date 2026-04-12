@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = "calendav"
-  spec.version       = "0.5.1"
+  spec.version       = "0.6.0"
   spec.authors       = ["Pat Allan"]
   spec.email         = ["pat@freelancing-gods.com"]
 

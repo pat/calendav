@@ -309,7 +309,7 @@ With the CalDAV server running, you can now run `rake spec` to run the tests.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/pat/calendav. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/pat/calendav/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/pat/calendav. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/pat/calendav/blob/main/CODE_OF_CONDUCT.md) and [AI/LLMs policy](https://github.com/pat/calendav/blob/main/AI_POLICY.md).
 
 ## License
 

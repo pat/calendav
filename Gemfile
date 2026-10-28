@@ -7,6 +7,7 @@ gemspec
 gem "dotenv"
 gem "google-api-client"
 gem "googleauth"
+gem "multi_json"
 gem "pry"
 gem "rake"
 gem "rspec"

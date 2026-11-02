@@ -16,7 +16,7 @@ jobs:
           - "4.0"
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
 
     # Locking to 3.1.9 as 3.1.9-1 and 3.1.9-2 are both broken (and nothing newer
     # has been released at this point).
@@ -24,7 +24,7 @@ jobs:
       run: docker run -v ${{ github.workspace }}/spec/data/radicale:/var/radicale --name radicale --publish 8000:8000 --detach xlrl/radicale:3.1.9
 
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@de492cf36cbab201753d720ce4f4e336cd688c94 # v1.336.0
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true

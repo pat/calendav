@@ -50,15 +50,11 @@ module Calendav
     attr_reader :attributes
 
     def inner_calendar
-      return @inner_calendar if defined?(@inner_calendar)
-
-      @inner_calendar = Icalendar::Calendar.parse(calendar_data).first
+      @inner_calendar ||= Icalendar::Calendar.parse(calendar_data).first
     end
 
     def inner_todo
-      return @inner_todo if defined?(@inner_todo)
-
-      @inner_todo = inner_calendar.todos.first
+      @inner_todo ||= inner_calendar.todos.first
     end
   end
 end

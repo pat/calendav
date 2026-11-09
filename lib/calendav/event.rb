@@ -58,11 +58,11 @@ module Calendav
     attr_reader :attributes
 
     def inner_calendar
-      Icalendar::Calendar.parse(calendar_data).first
+      @inner_calendar ||= Icalendar::Calendar.parse(calendar_data).first
     end
 
     def inner_event
-      @inner_event = inner_calendar.events.first
+      @inner_event ||= inner_calendar.events.first
     end
   end
 end
